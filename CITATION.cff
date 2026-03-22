@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "ORASR: Operational Reasoning-Action Safety Routing for Critical Systems"
+version: 1.0.0
+date-released: 2026-01-09
+authors:
+  - family-names: "Tritham"
+    given-names: "Chatchai"
+    email: "chatchait66@nu.ac.th"
+    affiliation: "Naresuan University"
+  - family-names: "Namahoot"
+    given-names: "Chakkrit Snae"
+    email: "chakkrits@nu.ac.th"
+    affiliation: "Naresuan University"
+repository-code: "https://github.com/ChatchaiTritham/ORASR"
+url: "https://github.com/ChatchaiTritham/ORASR"
+abstract: >-
+  ORASR implements multi-pathway safety routing that directs AI actions through
+  appropriate validation gates based on risk assessment, ensuring safe execution
+  in critical systems.
+keywords:
+  - safety routing
+  - risk assessment
+  - explainable ai
+  - healthcare ai
+  - patient safety
+  - reasoning transparency
+license: MIT
