@@ -5,8 +5,8 @@ Package configuration for the ORASR framework, which implements multi-pathway
 safety routing for critical AI systems.
 
 Author: Chatchai Tritham
-Advisor: Assoc. Prof. Dr. Chakkrit Snae Namahoot
-Institution: Naresuan University, Thailand
+Supervisor: Chakkrit Snae Namahoot
+Institution: Department of Computer Science and Information Technology, Faculty of Science, Naresuan University, Phitsanulok 65000, Thailand
 """
 
 from setuptools import setup, find_packages
@@ -23,7 +23,7 @@ setup(
     name="orasr",
     version="1.0.0",
     author="Chatchai Tritham, Chakkrit Snae Namahoot",
-    author_email="chatchai.tritham@nu.ac.th",
+    author_email="chatchait66@nu.ac.th, chakkrits@nu.ac.th",
     description="ORASR: Operational Reasoning-Action Safety Routing for Critical AI Systems",
     long_description=long_desc,
     long_description_content_type="text/markdown",
