@@ -1,4 +1,4 @@
-# ORASR
+﻿# ORASR
 
 ## Overview
 
@@ -97,21 +97,6 @@ manuscript's formulas, pseudocode, data/results, and figures for:
 The current manuscript uses local figure names, while the repository records the
 curated routing figure artifacts in `FIGURE_MANIFEST.csv`. Future manuscript
 cleanup should map each manuscript figure to the corresponding manifest row.
-
-## Methodological References
-
-ORASR is positioned as an operational routing layer. It should be cited or
-described separately from TRI-X:
-
-- TRI-X is the integrated framework.
-- ORASR owns pathway routing and safety action selection.
-- DRAS-5 owns stateful risk-action behavior.
-- SURgul/SRGL owns governance logic.
-
-## Citation
-
-The associated manuscript is still in preparation. Until its publication status
-changes, cite this software repository using `CITATION.cff`.
 
 ## Contact
 

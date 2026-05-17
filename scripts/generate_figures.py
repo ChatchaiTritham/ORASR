@@ -1,7 +1,7 @@
-"""Generate manuscript-ready ORASR figures.
+﻿"""Generate manuscript-ready ORASR figures.
 
 The figures are intentionally derived from the current ORASR pathway and gate
-structure so the thesis can cite repository-native visual evidence.
+structure so the thesis can use repository-native visual evidence.
 """
 
 from __future__ import annotations
