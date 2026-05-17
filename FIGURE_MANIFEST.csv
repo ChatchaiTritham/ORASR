@@ -1,0 +1,3 @@
+figure_id,role,png,pdf,source_script,source_data,caption,article_section,generated_at,dpi
+ORASR-F1,manuscript,figures\orasr_pathway_architecture.png,figures\orasr_pathway_architecture.pdf,scripts/generate_figures.py,scripts/generate_figures.py,"ORASR routing architecture connecting action requests, risk thresholds, safety gates, and audit output.",Routing architecture,2026-05-17T16:05:14,300
+ORASR-F2,manuscript,figures\orasr_risk_pathway_map.png,figures\orasr_risk_pathway_map.pdf,scripts/generate_figures.py,scripts/generate_figures.py,"Risk-score pathway map showing FAST, NORMAL, and SAFE routing thresholds.",Pathway selection,2026-05-17T16:05:14,300
