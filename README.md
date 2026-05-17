@@ -84,10 +84,6 @@ pytest tests -v
 
 ## Manuscript Alignment
 
-Canonical manuscript package:
-
-- `D:\PhD-NU\Manuscript\Manuscript\ES_ORASR`
-
 The ORASR manuscript is still in preparation and owns the routing/action-
 selection contribution in the research program. This repository supports the
 manuscript's formulas, pseudocode, data/results, and figures for:
