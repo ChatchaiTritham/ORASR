@@ -1,4 +1,4 @@
-# Code of Conduct
+﻿# Code of Conduct
 
 This project follows a professional research collaboration standard.
 
@@ -6,7 +6,7 @@ This project follows a professional research collaboration standard.
 
 - Use respectful, precise, and evidence-based communication.
 - Keep discussion focused on reproducibility, correctness, safety, and documentation quality.
-- Credit prior work and preserve citation metadata.
+- Credit prior work and preserve reference metadata.
 
 ## Unacceptable Behavior
 
