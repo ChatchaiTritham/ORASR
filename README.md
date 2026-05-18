@@ -2,120 +2,97 @@
 
 ## Overview
 
-ORASR implements Operational Reasoning-Action Safety Routing for pathway-aware,
-safety-constrained action execution.
+Operational reasoning-action safety routing for selecting safe clinical action pathways under uncertainty.
 
-## Installation
+This repository is part of an eight-repository clinical decision-support research portfolio. Current status: manuscript or component package in preparation. The repository role is **manuscript**.
 
-```bash
+## Standard Repository Layout
+
+| Path | Purpose |
+|---|---|
+| `src/` | Package source code: `orasr` |
+| `tests/` | Unit, smoke, and behavior checks |
+| `scripts/` | Reproducibility and export scripts |
+| `examples/` | Runnable examples and demonstrations |
+| `figures/`, `visualizations/`, `outputs/`, `results/` | Generated visual and result artifacts |
+| `data/`, `models/`, `evaluation/` | Dataset, model, and evaluation assets when used by this repo |
+| `FIGURE_MANIFEST.csv` | Curated figure inventory for manuscript or component evidence |
+| `pyproject.toml`, `setup.py`, `requirements.txt`, `pytest.ini` | Python package and test configuration |
+
+## Architecture Flow
+
+```mermaid
+flowchart LR
+    A[Input data or scenario] --> B[Core package logic]
+    B --> C[Safety and quality checks]
+    C --> D[Metrics and audit outputs]
+    D --> E[Curated figures and result artifacts]
+```
+
+## Core Logic
+
+- Receive risk and action request.
+- Check pathway constraints.
+- Select route with safety override.
+- Record reasoning and audit outputs.
+
+## Key Formulas And Rules
+
+- Route r* = argmax_r U(r | risk, constraints)
+- Safety override: r = SAFE if constraint violation is detected
+- Pathway tier: FAST, NORMAL, or SAFE from thresholded risk
+
+## Data, Results, Charts, And Graphs
+
+The curated visual set is controlled by FIGURE_MANIFEST.csv and currently lists **2** figure entries. The manifest links figure IDs, roles, source scripts, source data, captions, sections, timestamps, and export DPI.
+
+| ID | Role | PNG | PDF |
+|---|---|---|---|
+| ORASR-F1 | manuscript | `figures\orasr_pathway_architecture.png` | `figures\orasr_pathway_architecture.pdf` |
+| ORASR-F2 | manuscript | `figures\orasr_risk_pathway_map.png` | `figures\orasr_risk_pathway_map.pdf` |
+
+## Reproduce
+
+```powershell
+cd D:\PhD-NU\Manuscript\GitHub\ORASR
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install -e .
+python -m pytest -q
 ```
 
-## Repository Structure
+If figure-generation scripts are present, run the matching script listed in `FIGURE_MANIFEST.csv` from the repository root.
 
-- `src/orasr/`: importable package
-- `tests/`: automated tests
-- `scripts/`: runnable demos
-- `notebooks/`: interactive walkthroughs
+## Verification Criteria
 
-## Tutorials And Demos
+- Root metadata and package files are present.
+- Source paths follow `src/<package>/...` where the package shape allows it.
+- Tests pass with `python -m pytest -q`.
+- Curated figures are listed in `FIGURE_MANIFEST.csv` rather than inferred from every raw image file.
+- Manuscript status wording stays conservative: in preparation, implementation, supplementary, or reproducibility/component evidence as appropriate.
+- No local manuscript path, external assistant wording, or software metadata block is kept in the repository text.
 
-- Script demos:
-  - `scripts/demo.py`: end-to-end routing walkthrough
-  - `scripts/gate_demo.py`: individual gate behavior walkthrough
-  - `scripts/generate_figures.py`: manuscript figure generation
-  - `scripts/generate_manuscript_manifest.py`: curated manuscript figure manifest and visual QA sheet
-- Notebooks:
-  - `notebooks/01_orasr_quickstart.ipynb`: starter interactive quickstart
-  - `notebooks/02_orasr_advanced_workflows.ipynb`: risk sweeps, approvals, latency, and pathway visualization
+## Portfolio Relationship
 
-Run a demo from the repository root:
-
-```bash
-python scripts/demo.py
-python scripts/gate_demo.py
-```
-
-## Curated Manuscript Figures
-
-Curated manuscript figures listed in `FIGURE_MANIFEST.csv` are maintained for a
-manuscript that is still in preparation. This status does not imply publication,
-acceptance, or final journal readiness.
-
-Regenerate figure exports:
-
-```bash
-python scripts/generate_figures.py
-```
-
-Regenerate the manifest and visual QA sheet:
-
-```bash
-python scripts/generate_manuscript_manifest.py
-```
-
-Outputs:
-
-- `figures/`: PDF and PNG figure exports
-- `FIGURE_MANIFEST.csv`: curated figure role, source script, source artifact,
-  caption, and intended article section
-- `figures/visual_qa_contact_sheet.png`: visual QA sheet
-
-## Cross-Repository Tutorial Charts
-
-- `../tutorial_surface_comparison.png`: scripts vs examples vs notebooks across all repositories
-- `../tutorial_asset_density.png`: interactive/tutorial asset density normalized by repository size
-
-## Package Scope
-
-Core modules include routing, pathways, reasoning traces, constraints, and gate
-validation helpers.
-
-## Source Layout
-
-This repository uses the recommended `src/<package_name>` layout.
-Importable code lives in `src/orasr/`.
-
-## Testing
-
-```bash
-pytest tests -v
-```
-
-## Manuscript Alignment
-
-The ORASR manuscript is still in preparation and owns the routing/action-
-selection contribution in the research program. This repository supports the
-manuscript's formulas, pseudocode, data/results, and figures for:
-
-- operational pathway routing
-- risk-proportionate action selection
-- safety-gate validation
-- transparent reasoning traces
-- pathway architecture and risk-pathway map figures
-
-The current manuscript uses local figure names, while the repository records the
-curated routing figure artifacts in `FIGURE_MANIFEST.csv`. Future manuscript
-cleanup should map each manuscript figure to the corresponding manifest row.
+| Repository | Role |
+|---|---|
+| BASICS-CDSS | Beyond-accuracy evaluation methodology |
+| TRI-X | Framework-level package |
+| ORASR | Routing and safety-action component |
+| DRAS-5 | Dynamic risk-state component |
+| SAFE-Gate | Safety-gated ensemble framework |
+| SynDX | Synthetic validation and explainability evidence |
+| SURgul | SRGL/governance reproducibility component |
+| TRI-X-CDSS | Integration and implementation package |
 
 ## Contact
 
-### Contact Author
+**Chatchai Tritham**  
+Department of Computer Science and Information Technology, Faculty of Science, Naresuan University, Phitsanulok 65000, Thailand  
+Email: chatchait66@nu.ac.th  
+ORCID: 0000-0001-7899-228X
 
-**Chatchai Tritham** (Author)
-
-- Email: [chatchait66@nu.ac.th](mailto:chatchait66@nu.ac.th)
-- ORCID: [0000-0001-7899-228X](https://orcid.org/0000-0001-7899-228X)
-- Department of Computer Science and Information Technology
-- Faculty of Science, Naresuan University
-- Phitsanulok 65000, Thailand
-
-### Supervisor
-
-**Chakkrit Snae Namahoot**
-
-- E-mail: [chakkrits@nu.ac.th](mailto:chakkrits@nu.ac.th)
-- ORCID: [0000-0003-4660-4590](https://orcid.org/0000-0003-4660-4590)
-- Department of Computer Science and Information Technology
-- Faculty of Science, Naresuan University
-- Phitsanulok 65000, Thailand
+**Chakkrit Snae Namahoot**  
+Department of Computer Science and Information Technology, Faculty of Science, Naresuan University, Phitsanulok 65000, Thailand  
+Email: chakkrits@nu.ac.th  
+ORCID: 0000-0003-4660-4590
