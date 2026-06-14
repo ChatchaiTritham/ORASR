@@ -84,6 +84,9 @@ If figure-generation scripts are present, run the matching script listed in `FIG
 | SynDX | Synthetic validation and explainability evidence |
 | SURgul | SRGL/governance reproducibility component |
 | TRI-X-CDSS | Integration and implementation package |
+| Selective-CDSS | Risk-controlled selective-prediction (abstention) component |
+| Causal-CDSS | Causal-inference evaluation component |
+| Beyond-Accuracy | Simulation-based safety/calibration evaluation framework |
 
 ## Contact
 
