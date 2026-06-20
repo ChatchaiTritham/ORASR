@@ -1,0 +1,647 @@
+{
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+    "machine": "AMD64",
+    "seed": 42,
+    "timestamp_utc": "2026-06-20T06:21:59Z"
+  },
+  "robustness_cohort": {
+    "n": 6000,
+    "malformed_rate": 0.18,
+    "base_violation_rate": 0.181,
+    "note": "Violations are produced by the committed PRECONDITION/POSTCONDITION validators rejecting a deterministic malformed-input fraction; they are measured by the real ORASRRouter, not assigned."
+  },
+  "risk_coverage_curve": [
+    {
+      "tau": 1.0,
+      "coverage": 1.0,
+      "risk": 0.181,
+      "n_covered": 6000
+    },
+    {
+      "tau": 0.99,
+      "coverage": 0.988833,
+      "risk": 0.18119,
+      "n_covered": 5933
+    },
+    {
+      "tau": 0.98,
+      "coverage": 0.979833,
+      "risk": 0.181153,
+      "n_covered": 5879
+    },
+    {
+      "tau": 0.97,
+      "coverage": 0.967667,
+      "risk": 0.179814,
+      "n_covered": 5806
+    },
+    {
+      "tau": 0.96,
+      "coverage": 0.957,
+      "risk": 0.180077,
+      "n_covered": 5742
+    },
+    {
+      "tau": 0.95,
+      "coverage": 0.947667,
+      "risk": 0.180091,
+      "n_covered": 5686
+    },
+    {
+      "tau": 0.94,
+      "coverage": 0.936667,
+      "risk": 0.180071,
+      "n_covered": 5620
+    },
+    {
+      "tau": 0.93,
+      "coverage": 0.928333,
+      "risk": 0.179713,
+      "n_covered": 5570
+    },
+    {
+      "tau": 0.92,
+      "coverage": 0.9205,
+      "risk": 0.178164,
+      "n_covered": 5523
+    },
+    {
+      "tau": 0.91,
+      "coverage": 0.911167,
+      "risk": 0.177611,
+      "n_covered": 5467
+    },
+    {
+      "tau": 0.9,
+      "coverage": 0.902667,
+      "risk": 0.177806,
+      "n_covered": 5416
+    },
+    {
+      "tau": 0.89,
+      "coverage": 0.892667,
+      "risk": 0.176998,
+      "n_covered": 5356
+    },
+    {
+      "tau": 0.88,
+      "coverage": 0.886333,
+      "risk": 0.17657,
+      "n_covered": 5318
+    },
+    {
+      "tau": 0.87,
+      "coverage": 0.8765,
+      "risk": 0.176079,
+      "n_covered": 5259
+    },
+    {
+      "tau": 0.86,
+      "coverage": 0.866333,
+      "risk": 0.176029,
+      "n_covered": 5198
+    },
+    {
+      "tau": 0.85,
+      "coverage": 0.856667,
+      "risk": 0.17607,
+      "n_covered": 5140
+    },
+    {
+      "tau": 0.84,
+      "coverage": 0.846667,
+      "risk": 0.175591,
+      "n_covered": 5080
+    },
+    {
+      "tau": 0.83,
+      "coverage": 0.836,
+      "risk": 0.174442,
+      "n_covered": 5016
+    },
+    {
+      "tau": 0.82,
+      "coverage": 0.826,
+      "risk": 0.173527,
+      "n_covered": 4956
+    },
+    {
+      "tau": 0.81,
+      "coverage": 0.815667,
+      "risk": 0.174295,
+      "n_covered": 4894
+    },
+    {
+      "tau": 0.8,
+      "coverage": 0.806667,
+      "risk": 0.174587,
+      "n_covered": 4840
+    },
+    {
+      "tau": 0.79,
+      "coverage": 0.7965,
+      "risk": 0.174932,
+      "n_covered": 4779
+    },
+    {
+      "tau": 0.78,
+      "coverage": 0.784667,
+      "risk": 0.175446,
+      "n_covered": 4708
+    },
+    {
+      "tau": 0.77,
+      "coverage": 0.775833,
+      "risk": 0.175295,
+      "n_covered": 4655
+    },
+    {
+      "tau": 0.76,
+      "coverage": 0.765833,
+      "risk": 0.176061,
+      "n_covered": 4595
+    },
+    {
+      "tau": 0.75,
+      "coverage": 0.756,
+      "risk": 0.174383,
+      "n_covered": 4536
+    },
+    {
+      "tau": 0.74,
+      "coverage": 0.743167,
+      "risk": 0.174479,
+      "n_covered": 4459
+    },
+    {
+      "tau": 0.73,
+      "coverage": 0.732833,
+      "risk": 0.175347,
+      "n_covered": 4397
+    },
+    {
+      "tau": 0.72,
+      "coverage": 0.721833,
+      "risk": 0.175248,
+      "n_covered": 4331
+    },
+    {
+      "tau": 0.71,
+      "coverage": 0.714167,
+      "risk": 0.175029,
+      "n_covered": 4285
+    },
+    {
+      "tau": 0.7,
+      "coverage": 0.7035,
+      "risk": 0.175314,
+      "n_covered": 4221
+    },
+    {
+      "tau": 0.69,
+      "coverage": 0.693,
+      "risk": 0.175084,
+      "n_covered": 4158
+    },
+    {
+      "tau": 0.68,
+      "coverage": 0.683667,
+      "risk": 0.175037,
+      "n_covered": 4102
+    },
+    {
+      "tau": 0.67,
+      "coverage": 0.672333,
+      "risk": 0.1765,
+      "n_covered": 4034
+    },
+    {
+      "tau": 0.66,
+      "coverage": 0.662333,
+      "risk": 0.175138,
+      "n_covered": 3974
+    },
+    {
+      "tau": 0.65,
+      "coverage": 0.649833,
+      "risk": 0.174917,
+      "n_covered": 3899
+    },
+    {
+      "tau": 0.64,
+      "coverage": 0.638667,
+      "risk": 0.175104,
+      "n_covered": 3832
+    },
+    {
+      "tau": 0.63,
+      "coverage": 0.629833,
+      "risk": 0.175708,
+      "n_covered": 3779
+    },
+    {
+      "tau": 0.62,
+      "coverage": 0.621333,
+      "risk": 0.175429,
+      "n_covered": 3728
+    },
+    {
+      "tau": 0.61,
+      "coverage": 0.609167,
+      "risk": 0.17565,
+      "n_covered": 3655
+    },
+    {
+      "tau": 0.6,
+      "coverage": 0.598333,
+      "risk": 0.17493,
+      "n_covered": 3590
+    },
+    {
+      "tau": 0.59,
+      "coverage": 0.588333,
+      "risk": 0.175921,
+      "n_covered": 3530
+    },
+    {
+      "tau": 0.58,
+      "coverage": 0.579167,
+      "risk": 0.176691,
+      "n_covered": 3475
+    },
+    {
+      "tau": 0.57,
+      "coverage": 0.5695,
+      "risk": 0.176471,
+      "n_covered": 3417
+    },
+    {
+      "tau": 0.56,
+      "coverage": 0.5595,
+      "risk": 0.178135,
+      "n_covered": 3357
+    },
+    {
+      "tau": 0.55,
+      "coverage": 0.548167,
+      "risk": 0.17817,
+      "n_covered": 3289
+    },
+    {
+      "tau": 0.54,
+      "coverage": 0.541,
+      "risk": 0.177141,
+      "n_covered": 3246
+    },
+    {
+      "tau": 0.53,
+      "coverage": 0.531167,
+      "risk": 0.177596,
+      "n_covered": 3187
+    },
+    {
+      "tau": 0.52,
+      "coverage": 0.521667,
+      "risk": 0.178914,
+      "n_covered": 3130
+    },
+    {
+      "tau": 0.51,
+      "coverage": 0.513,
+      "risk": 0.179987,
+      "n_covered": 3078
+    },
+    {
+      "tau": 0.5,
+      "coverage": 0.5035,
+      "risk": 0.179742,
+      "n_covered": 3021
+    },
+    {
+      "tau": 0.49,
+      "coverage": 0.494333,
+      "risk": 0.18004,
+      "n_covered": 2966
+    },
+    {
+      "tau": 0.48,
+      "coverage": 0.4835,
+      "risk": 0.181317,
+      "n_covered": 2901
+    },
+    {
+      "tau": 0.47,
+      "coverage": 0.470333,
+      "risk": 0.181077,
+      "n_covered": 2822
+    },
+    {
+      "tau": 0.46,
+      "coverage": 0.4615,
+      "risk": 0.179487,
+      "n_covered": 2769
+    },
+    {
+      "tau": 0.45,
+      "coverage": 0.449833,
+      "risk": 0.177844,
+      "n_covered": 2699
+    },
+    {
+      "tau": 0.44,
+      "coverage": 0.4395,
+      "risk": 0.177854,
+      "n_covered": 2637
+    },
+    {
+      "tau": 0.43,
+      "coverage": 0.4305,
+      "risk": 0.180023,
+      "n_covered": 2583
+    },
+    {
+      "tau": 0.42,
+      "coverage": 0.419833,
+      "risk": 0.179436,
+      "n_covered": 2519
+    },
+    {
+      "tau": 0.41,
+      "coverage": 0.408167,
+      "risk": 0.178849,
+      "n_covered": 2449
+    },
+    {
+      "tau": 0.4,
+      "coverage": 0.397833,
+      "risk": 0.177629,
+      "n_covered": 2387
+    },
+    {
+      "tau": 0.39,
+      "coverage": 0.39,
+      "risk": 0.178632,
+      "n_covered": 2340
+    },
+    {
+      "tau": 0.38,
+      "coverage": 0.379667,
+      "risk": 0.180421,
+      "n_covered": 2278
+    },
+    {
+      "tau": 0.37,
+      "coverage": 0.367833,
+      "risk": 0.179429,
+      "n_covered": 2207
+    },
+    {
+      "tau": 0.36,
+      "coverage": 0.358833,
+      "risk": 0.178356,
+      "n_covered": 2153
+    },
+    {
+      "tau": 0.35,
+      "coverage": 0.349167,
+      "risk": 0.177088,
+      "n_covered": 2095
+    },
+    {
+      "tau": 0.34,
+      "coverage": 0.339833,
+      "risk": 0.178028,
+      "n_covered": 2039
+    },
+    {
+      "tau": 0.33,
+      "coverage": 0.328833,
+      "risk": 0.179422,
+      "n_covered": 1973
+    },
+    {
+      "tau": 0.32,
+      "coverage": 0.318333,
+      "risk": 0.181152,
+      "n_covered": 1910
+    },
+    {
+      "tau": 0.31,
+      "coverage": 0.307833,
+      "risk": 0.181375,
+      "n_covered": 1847
+    },
+    {
+      "tau": 0.3,
+      "coverage": 0.2945,
+      "risk": 0.184493,
+      "n_covered": 1767
+    },
+    {
+      "tau": 0.29,
+      "coverage": 0.284333,
+      "risk": 0.184056,
+      "n_covered": 1706
+    },
+    {
+      "tau": 0.28,
+      "coverage": 0.2755,
+      "risk": 0.185118,
+      "n_covered": 1653
+    },
+    {
+      "tau": 0.27,
+      "coverage": 0.265167,
+      "risk": 0.181647,
+      "n_covered": 1591
+    },
+    {
+      "tau": 0.26,
+      "coverage": 0.254,
+      "risk": 0.182415,
+      "n_covered": 1524
+    },
+    {
+      "tau": 0.25,
+      "coverage": 0.244667,
+      "risk": 0.182561,
+      "n_covered": 1468
+    },
+    {
+      "tau": 0.24,
+      "coverage": 0.2345,
+      "risk": 0.181947,
+      "n_covered": 1407
+    },
+    {
+      "tau": 0.23,
+      "coverage": 0.2265,
+      "risk": 0.181015,
+      "n_covered": 1359
+    },
+    {
+      "tau": 0.22,
+      "coverage": 0.217333,
+      "risk": 0.179448,
+      "n_covered": 1304
+    },
+    {
+      "tau": 0.21,
+      "coverage": 0.209333,
+      "risk": 0.181529,
+      "n_covered": 1256
+    },
+    {
+      "tau": 0.2,
+      "coverage": 0.202667,
+      "risk": 0.183388,
+      "n_covered": 1216
+    },
+    {
+      "tau": 0.19,
+      "coverage": 0.193667,
+      "risk": 0.183305,
+      "n_covered": 1162
+    },
+    {
+      "tau": 0.18,
+      "coverage": 0.181667,
+      "risk": 0.177982,
+      "n_covered": 1090
+    },
+    {
+      "tau": 0.17,
+      "coverage": 0.170667,
+      "risk": 0.177734,
+      "n_covered": 1024
+    },
+    {
+      "tau": 0.16,
+      "coverage": 0.161,
+      "risk": 0.180124,
+      "n_covered": 966
+    },
+    {
+      "tau": 0.15,
+      "coverage": 0.1505,
+      "risk": 0.181617,
+      "n_covered": 903
+    },
+    {
+      "tau": 0.14,
+      "coverage": 0.141167,
+      "risk": 0.182999,
+      "n_covered": 847
+    },
+    {
+      "tau": 0.13,
+      "coverage": 0.13,
+      "risk": 0.184615,
+      "n_covered": 780
+    },
+    {
+      "tau": 0.12,
+      "coverage": 0.118833,
+      "risk": 0.183731,
+      "n_covered": 713
+    },
+    {
+      "tau": 0.11,
+      "coverage": 0.1085,
+      "risk": 0.176651,
+      "n_covered": 651
+    },
+    {
+      "tau": 0.1,
+      "coverage": 0.096833,
+      "risk": 0.182444,
+      "n_covered": 581
+    },
+    {
+      "tau": 0.09,
+      "coverage": 0.083833,
+      "risk": 0.184891,
+      "n_covered": 503
+    },
+    {
+      "tau": 0.08,
+      "coverage": 0.073833,
+      "risk": 0.171558,
+      "n_covered": 443
+    },
+    {
+      "tau": 0.07,
+      "coverage": 0.063333,
+      "risk": 0.171053,
+      "n_covered": 380
+    },
+    {
+      "tau": 0.06,
+      "coverage": 0.0535,
+      "risk": 0.174455,
+      "n_covered": 321
+    },
+    {
+      "tau": 0.05,
+      "coverage": 0.043667,
+      "risk": 0.175573,
+      "n_covered": 262
+    },
+    {
+      "tau": 0.04,
+      "coverage": 0.034167,
+      "risk": 0.156098,
+      "n_covered": 205
+    },
+    {
+      "tau": 0.03,
+      "coverage": 0.027,
+      "risk": 0.17284,
+      "n_covered": 162
+    },
+    {
+      "tau": 0.02,
+      "coverage": 0.0185,
+      "risk": 0.135135,
+      "n_covered": 111
+    },
+    {
+      "tau": 0.01,
+      "coverage": 0.008667,
+      "risk": 0.153846,
+      "n_covered": 52
+    },
+    {
+      "tau": 0.0,
+      "coverage": 0.0,
+      "risk": 0.0,
+      "n_covered": 0
+    }
+  ],
+  "operating_point": {
+    "tau": 0.7,
+    "coverage": 0.7035,
+    "risk": 0.175314,
+    "note": "tau == ORASRRouter.SAFE_PATH_THRESHOLD (natural deferral set)."
+  },
+  "lane_reliability": {
+    "FAST": {
+      "n": 1767,
+      "violations": 326,
+      "pass_rate_pct": 81.5507
+    },
+    "NORMAL": {
+      "n": 2454,
+      "violations": 414,
+      "pass_rate_pct": 83.1296
+    },
+    "SAFE": {
+      "n": 1779,
+      "violations": 346,
+      "pass_rate_pct": 80.5509
+    }
+  }
+}
