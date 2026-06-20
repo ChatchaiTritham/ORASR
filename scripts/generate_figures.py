@@ -1,7 +1,9 @@
-﻿"""Generate manuscript-ready ORASR figures.
+"""Generate manuscript-ready ORASR figures.
 
 The figures are intentionally derived from the current ORASR pathway and gate
-structure so the thesis can use repository-native visual evidence.
+structure so the thesis can use repository-native visual evidence. Styling
+follows the canonical shared publication style (_management/FIGURE_STYLE.md):
+Okabe-Ito color-blind-safe palette, Times serif fonts, vector PDF + 300 dpi PNG.
 """
 
 from __future__ import annotations
@@ -9,13 +11,70 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 
 ROOT = Path(__file__).resolve().parents[1]
 FIGURES = ROOT / "figures"
 RESULTS = ROOT / "results"
+
+
+# Color-blind-safe (Okabe-Ito) — canonical shared order.
+PALETTE = ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#000000"]
+
+
+def apply_pub_style() -> None:
+    """Apply the canonical Top-Tier matplotlib style (once, before plotting)."""
+    mpl.rcParams.update(
+        {
+            "figure.dpi": 150,
+            "savefig.dpi": 300,
+            "savefig.bbox": "tight",
+            "savefig.pad_inches": 0.02,
+            "font.family": "serif",
+            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+            "mathtext.fontset": "stix",
+            "font.size": 10,
+            "axes.titlesize": 11,
+            "axes.labelsize": 10,
+            "xtick.labelsize": 9,
+            "ytick.labelsize": 9,
+            "legend.fontsize": 9,
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+            "axes.linewidth": 0.8,
+            "axes.grid": True,
+            "grid.alpha": 0.3,
+            "grid.linewidth": 0.6,
+            "lines.linewidth": 1.6,
+            "lines.markersize": 5,
+            "legend.frameon": False,
+            "figure.constrained_layout.use": True,
+            "axes.prop_cycle": mpl.cycler(color=PALETTE),
+        }
+    )
+
+
+# Muted palette-derived tints for schematic fills (keep text readable on top).
+# Each pathway maps to a palette hue; neutral boxes use a light slate.
+PATHWAY_FILL = {
+    "FAST": "#cfeae0",     # tint of Okabe-Ito green  (#009E73)
+    "NORMAL": "#f7e3c9",   # tint of Okabe-Ito orange (#E69F00)
+    "SAFE": "#f4d6c6",     # tint of Okabe-Ito vermillion (#D55E00)
+}
+PATHWAY_EDGE = {
+    "FAST": "#009E73",
+    "NORMAL": "#E69F00",
+    "SAFE": "#D55E00",
+}
+NEUTRAL_FILL = "#eef2f6"
+NEUTRAL_EDGE = "#000000"
+ACCENT_EDGE = "#0072B2"       # primary blue for normal flow
+BLOCK_EDGE = "#D55E00"        # vermillion for blocked / deferred flow
+INPUT_FILL = "#d6e7f2"        # tint of Okabe-Ito blue (#0072B2)
+RESULT_FILL = "#e6dcef"       # tint of Okabe-Ito purple (#CC79A7)
 
 
 def load_threshold_bands():
@@ -53,13 +112,13 @@ def load_threshold_bands():
     ]
 
 
-def add_box(ax, xy, width, height, label, facecolor="#f8fafc", edgecolor="#334155"):
+def add_box(ax, xy, width, height, label, facecolor=NEUTRAL_FILL, edgecolor=NEUTRAL_EDGE):
     patch = FancyBboxPatch(
         xy,
         width,
         height,
         boxstyle="round,pad=0.035,rounding_size=0.03",
-        linewidth=1.4,
+        linewidth=1.3,
         edgecolor=edgecolor,
         facecolor=facecolor,
     )
@@ -70,40 +129,52 @@ def add_box(ax, xy, width, height, label, facecolor="#f8fafc", edgecolor="#33415
         label,
         ha="center",
         va="center",
-        fontsize=10,
-        wrap=True,
+        fontsize=9.5,
+        linespacing=1.35,
+        zorder=5,
     )
 
 
-def arrow(ax, start, end, color="#334155"):
-    ax.annotate(
-        "",
-        xy=end,
-        xytext=start,
-        arrowprops={"arrowstyle": "->", "lw": 1.5, "color": color},
+def arrow(ax, start, end, color=ACCENT_EDGE):
+    # FancyArrowPatch with a small shrink keeps the head off the box border so
+    # arrows never overlap the text inside a box.
+    patch = FancyArrowPatch(
+        start,
+        end,
+        arrowstyle="-|>",
+        mutation_scale=12,
+        lw=1.4,
+        color=color,
+        shrinkA=3,
+        shrinkB=3,
+        zorder=1,
     )
+    ax.add_patch(patch)
 
 
 def save_current(name: str) -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
-    for ext in ("png", "pdf"):
-        plt.savefig(FIGURES / f"{name}.{ext}", dpi=300, bbox_inches="tight")
+    for ext in ("pdf", "png"):
+        plt.savefig(FIGURES / f"{name}.{ext}")
     plt.close()
 
 
 def generate_pathway_architecture() -> None:
-    fig, ax = plt.subplots(figsize=(11, 6.2))
+    # constrained_layout is for axes; turn it off on this pure-canvas schematic
+    # to use the full figure area without reflow.
+    fig, ax = plt.subplots(figsize=(11, 6.4), layout="none")
+    fig.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
     ax.text(
         0.5,
-        0.95,
+        0.955,
         "ORASR Operational Reasoning-Action Safety Routing",
         ha="center",
         va="center",
-        fontsize=16,
+        fontsize=15,
         fontweight="bold",
     )
 
@@ -111,53 +182,101 @@ def generate_pathway_architecture() -> None:
     lo_n = bands["NORMAL"]["lo"]
     hi_n = bands["NORMAL"]["hi"]
 
-    add_box(ax, (0.04, 0.48), 0.16, 0.16, "Input action\nclinical context\nrisk score", "#e0f2fe")
+    # --- Input -----------------------------------------------------------
     add_box(
         ax,
-        (0.28, 0.68),
-        0.18,
-        0.13,
-        f"FAST\nrisk < {lo_n:.2f}\nG1 precondition",
-        "#dcfce7",
-    )
-    add_box(
-        ax,
-        (0.28, 0.44),
-        0.18,
-        0.16,
-        f"NORMAL\n{lo_n:.2f} <= risk < {hi_n:.2f}\nG1 + G2 + G3",
-        "#fef9c3",
-    )
-    add_box(
-        ax,
-        (0.28, 0.18),
-        0.18,
+        (0.03, 0.46),
         0.17,
-        f"SAFE\nrisk >= {hi_n:.2f}\nG1 + G2 + G3 + G4\nhuman approval",
-        "#fee2e2",
+        0.18,
+        "Input\naction + clinical context\n+ risk score",
+        INPUT_FILL,
+        ACCENT_EDGE,
     )
-    add_box(ax, (0.58, 0.55), 0.18, 0.16, "Safety gates\nconstraints\nreasoning trace", "#f1f5f9")
-    add_box(ax, (0.58, 0.25), 0.18, 0.16, "Blocked or deferred\nviolations logged\nsafe = false", "#ffe4e6")
-    add_box(ax, (0.82, 0.48), 0.14, 0.16, "Routed action\nsafe result\naudit history", "#ede9fe")
 
-    arrow(ax, (0.20, 0.56), (0.28, 0.74))
-    arrow(ax, (0.20, 0.56), (0.28, 0.52))
-    arrow(ax, (0.20, 0.56), (0.28, 0.27))
-    arrow(ax, (0.46, 0.745), (0.58, 0.64))
-    arrow(ax, (0.46, 0.52), (0.58, 0.64))
-    arrow(ax, (0.46, 0.27), (0.58, 0.64))
-    arrow(ax, (0.76, 0.63), (0.82, 0.56))
-    arrow(ax, (0.67, 0.55), (0.67, 0.41), "#b91c1c")
-    arrow(ax, (0.76, 0.33), (0.82, 0.50), "#b91c1c")
+    # --- Three pathways (well separated vertically, no overlap) ----------
+    add_box(
+        ax,
+        (0.275, 0.70),
+        0.20,
+        0.155,
+        f"FAST\nrisk < {lo_n:.2f}\nG1 precondition",
+        PATHWAY_FILL["FAST"],
+        PATHWAY_EDGE["FAST"],
+    )
+    add_box(
+        ax,
+        (0.275, 0.435),
+        0.20,
+        0.165,
+        f"NORMAL\n{lo_n:.2f} ≤ risk < {hi_n:.2f}\nG1 + G2 + G3",
+        PATHWAY_FILL["NORMAL"],
+        PATHWAY_EDGE["NORMAL"],
+    )
+    add_box(
+        ax,
+        (0.275, 0.145),
+        0.20,
+        0.185,
+        f"SAFE\nrisk ≥ {hi_n:.2f}\nG1 + G2 + G3 + G4\nhuman approval",
+        PATHWAY_FILL["SAFE"],
+        PATHWAY_EDGE["SAFE"],
+    )
+
+    # --- Gate evaluation + blocked branch --------------------------------
+    add_box(
+        ax,
+        (0.565, 0.555),
+        0.195,
+        0.175,
+        "Safety gates\nconstraints +\nreasoning trace",
+        NEUTRAL_FILL,
+        NEUTRAL_EDGE,
+    )
+    add_box(
+        ax,
+        (0.565, 0.205),
+        0.195,
+        0.175,
+        "Blocked or deferred\nviolations logged\nsafe = false",
+        PATHWAY_FILL["SAFE"],
+        BLOCK_EDGE,
+    )
+
+    # --- Routed result ---------------------------------------------------
+    add_box(
+        ax,
+        (0.825, 0.455),
+        0.155,
+        0.18,
+        "Routed action\nsafe result +\naudit history",
+        RESULT_FILL,
+        "#CC79A7",
+    )
+
+    # Input -> three pathways
+    arrow(ax, (0.20, 0.55), (0.275, 0.775))
+    arrow(ax, (0.20, 0.55), (0.275, 0.515))
+    arrow(ax, (0.20, 0.55), (0.275, 0.235))
+    # Pathways -> gate evaluation
+    arrow(ax, (0.475, 0.775), (0.565, 0.66))
+    arrow(ax, (0.475, 0.515), (0.565, 0.64))
+    arrow(ax, (0.475, 0.235), (0.565, 0.61))
+    # Gate -> routed result (pass) and gate -> blocked (fail)
+    arrow(ax, (0.76, 0.64), (0.825, 0.56))
+    arrow(ax, (0.6625, 0.555), (0.6625, 0.38), BLOCK_EDGE)
+    # Blocked -> routed result (deferred is still an audited outcome)
+    arrow(ax, (0.76, 0.30), (0.825, 0.50), BLOCK_EDGE)
 
     ax.text(
         0.5,
-        0.07,
-        "Pathway selection follows ORASRRouter._select_pathway thresholds and PathwayConfig gate lists.",
+        0.055,
+        "Pathway selection follows ORASRRouter._select_pathway thresholds and "
+        "PathwayConfig gate lists.",
         ha="center",
         va="center",
-        fontsize=9,
-        color="#475569",
+        fontsize=8.5,
+        color="#333333",
+        style="italic",
     )
 
     save_current("orasr_pathway_architecture")
@@ -167,36 +286,82 @@ def generate_risk_pathway_map() -> None:
     fig, ax = plt.subplots(figsize=(10, 4.8))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
-    ax.set_xlabel("Risk score")
+    ax.set_xlabel("Risk score $\\rho$")
     ax.set_yticks([])
-    ax.set_title("ORASR Risk-Score Pathway Selection", fontsize=15, fontweight="bold")
+    ax.grid(False)
+    ax.set_title("ORASR Risk-Score Pathway Selection", fontsize=13, fontweight="bold")
 
     notes = {
         "FAST": "Precondition gate",
         "NORMAL": "Precondition, risk, constraints",
         "SAFE": "Full gates and human approval",
     }
-    colors = {"FAST": "#dcfce7", "NORMAL": "#fef9c3", "SAFE": "#fee2e2"}
     loaded = load_threshold_bands()
     for band in loaded:
         x0, x1, name = band["lo"], band["hi"], band["name"]
-        ax.axvspan(x0, x1, color=colors[name])
-        ax.text((x0 + x1) / 2, 0.62, name, ha="center", va="center", fontsize=14, fontweight="bold")
-        ax.text((x0 + x1) / 2, 0.42, notes[name], ha="center", va="center", fontsize=10)
+        ax.axvspan(x0, x1, color=PATHWAY_FILL[name], zorder=0)
+        ax.text(
+            (x0 + x1) / 2,
+            0.64,
+            name,
+            ha="center",
+            va="center",
+            fontsize=13,
+            fontweight="bold",
+            color=PATHWAY_EDGE[name],
+            zorder=3,
+        )
+        ax.text(
+            (x0 + x1) / 2,
+            0.45,
+            notes[name],
+            ha="center",
+            va="center",
+            fontsize=9.5,
+            color="#222222",
+            zorder=3,
+        )
+        ax.text(
+            (x0 + x1) / 2,
+            0.31,
+            f"{band['n_gates']} gate(s)",
+            ha="center",
+            va="center",
+            fontsize=8.5,
+            color="#444444",
+            style="italic",
+            zorder=3,
+        )
 
-    lo_n = {b["name"]: b for b in loaded}["NORMAL"]["lo"]
-    hi_n = {b["name"]: b for b in loaded}["NORMAL"]["hi"]
-    ax.axvline(lo_n, color="#334155", linestyle="--", linewidth=1.4)
-    ax.axvline(hi_n, color="#334155", linestyle="--", linewidth=1.4)
-    ax.text(lo_n, 0.86, f"{lo_n:.2f}", ha="center", fontsize=10)
-    ax.text(hi_n, 0.86, f"{hi_n:.2f}", ha="center", fontsize=10)
+    by_name = {b["name"]: b for b in loaded}
+    lo_n = by_name["NORMAL"]["lo"]
+    hi_n = by_name["NORMAL"]["hi"]
+    for thr in (lo_n, hi_n):
+        # Stop the dashed line above the footnote band so the two never cross.
+        ax.axvline(thr, ymin=0.18, ymax=1.0, color=PALETTE[6], linestyle="--", linewidth=1.3, zorder=2)
+        ax.text(
+            thr,
+            0.88,
+            f"{thr:.2f}",
+            ha="center",
+            va="center",
+            fontsize=9.5,
+            color=PALETTE[6],
+            bbox={"facecolor": "white", "edgecolor": "none", "pad": 1.2},
+            zorder=4,
+        )
+
     ax.text(
         0.5,
-        0.16,
-        "Thresholds match ORASRRouter.FAST_PATH_THRESHOLD and SAFE_PATH_THRESHOLD.",
+        0.07,
+        "Thresholds match ORASRRouter.FAST_PATH_THRESHOLD and "
+        "SAFE_PATH_THRESHOLD.",
         ha="center",
-        fontsize=9,
-        color="#475569",
+        va="center",
+        fontsize=8.5,
+        color="#333333",
+        style="italic",
+        zorder=3,
     )
     ax.spines[["left", "right", "top"]].set_visible(False)
 
@@ -204,6 +369,7 @@ def generate_risk_pathway_map() -> None:
 
 
 def main() -> None:
+    apply_pub_style()
     generate_pathway_architecture()
     generate_risk_pathway_map()
     print(f"Generated ORASR figures in {FIGURES}")
