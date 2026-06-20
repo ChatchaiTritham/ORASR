@@ -213,6 +213,132 @@ def run_cohort() -> Dict[str, Any]:
     }
 
 
+# --------------------------------------------------------------------------
+# 3. Reject-option evaluation (deterministic, seed-driven robustness cohort)
+# --------------------------------------------------------------------------
+# The clean cohort above passes every gate (100%), so it carries no risk signal
+# to trade against coverage. To produce an HONEST reject-option curve we build a
+# separate, explicitly-labelled robustness cohort in which a deterministic
+# fraction of scenarios carry malformed input (a structurally invalid payload
+# that the committed PRECONDITION/POSTCONDITION gates legitimately reject). The
+# violation rate is therefore measured by the REAL engine, not assigned by us.
+#
+#   - "violation" == the engine returns safe == False for an auto-executed action
+#     (a true gate-level rejection from the committed validators).
+#   - The reject option is an abstention threshold tau on the risk score: any
+#     scenario with risk >= tau is DEFERRED (not auto-executed) and removed from
+#     coverage; scenarios with risk < tau are auto-executed and contribute to the
+#     measured risk. Sweeping tau from 1.0 down to 0.0 traces coverage vs risk.
+#   - The marked operating point is the ORASR SAFE threshold (0.7): everything the
+#     router already sends to the SAFE pathway is the natural deferral set.
+ROBUSTNESS_N = 6000           # size of the robustness cohort
+ROBUSTNESS_MALFORMED_RATE = 0.18  # deterministic fraction with invalid payload
+
+
+def build_robustness_cohort(rng: random.Random) -> List[Dict[str, Any]]:
+    """Build a robustness cohort: risk in [0,1] with a deterministic malformed mix.
+
+    Malformed scenarios receive a payload the committed gates reject (None / a
+    non-dict), so the resulting violation is produced by the real validators.
+    """
+    cohort: List[Dict[str, Any]] = []
+    for _ in range(ROBUSTNESS_N):
+        risk = rng.random()
+        malformed = rng.random() < ROBUSTNESS_MALFORMED_RATE
+        payload = None if malformed else {"payload": 1}
+        cohort.append({"risk": risk, "malformed": malformed, "payload": payload})
+    return cohort
+
+
+def run_reject_option() -> Dict[str, Any]:
+    """Route the robustness cohort and trace a real risk-coverage curve.
+
+    Coverage = fraction auto-executed (risk < tau); risk = violation rate among
+    those auto-executed, where a violation is the engine's own safe == False.
+    """
+    rng = random.Random(SEED)
+    cohort = build_robustness_cohort(rng)
+    router = ORASRRouter(enable_fast_path=True, enable_audit=False)
+
+    def identity_action(data: Any) -> Any:
+        return data
+
+    # Route every scenario once; record (risk, violation, pathway) from the engine.
+    records: List[Dict[str, Any]] = []
+    lane_total: Dict[str, int] = {"FAST": 0, "NORMAL": 0, "SAFE": 0}
+    lane_violations: Dict[str, int] = {"FAST": 0, "NORMAL": 0, "SAFE": 0}
+    for sc in cohort:
+        result = router.route(
+            action=identity_action,
+            input_data=sc["payload"],
+            risk_score=sc["risk"],
+            human_approved=True,  # grant SAFE-path approval; isolate gate behaviour
+        )
+        violation = not result.safe
+        lane = result.path.name
+        records.append({"risk": sc["risk"], "violation": violation, "lane": lane})
+        lane_total[lane] += 1
+        if violation:
+            lane_violations[lane] += 1
+
+    total = len(records)
+    base_violation_rate = sum(1 for r in records if r["violation"]) / total
+
+    # Risk-coverage sweep: tau from 1.0 (cover all) down to 0.0 (cover none).
+    taus = [round(1.0 - i / 100.0, 2) for i in range(0, 101)]
+    curve: List[Dict[str, Any]] = []
+    for tau in taus:
+        covered = [r for r in records if r["risk"] < tau]
+        n_cov = len(covered)
+        coverage = n_cov / total
+        risk = (sum(1 for r in covered if r["violation"]) / n_cov) if n_cov else 0.0
+        curve.append(
+            {"tau": tau, "coverage": round(coverage, 6), "risk": round(risk, 6),
+             "n_covered": n_cov}
+        )
+
+    # Operating point: ORASR SAFE threshold (0.7) used as the deferral cutoff.
+    op_tau = router.SAFE_PATH_THRESHOLD
+    op_covered = [r for r in records if r["risk"] < op_tau]
+    op_coverage = len(op_covered) / total
+    op_risk = (
+        sum(1 for r in op_covered if r["violation"]) / len(op_covered)
+        if op_covered else 0.0
+    )
+
+    lane_reliability = {
+        lane: {
+            "n": lane_total[lane],
+            "violations": lane_violations[lane],
+            "pass_rate_pct": round(
+                100.0 * (lane_total[lane] - lane_violations[lane]) / lane_total[lane], 4
+            ) if lane_total[lane] else None,
+        }
+        for lane in ("FAST", "NORMAL", "SAFE")
+    }
+
+    return {
+        "robustness_cohort": {
+            "n": total,
+            "malformed_rate": ROBUSTNESS_MALFORMED_RATE,
+            "base_violation_rate": round(base_violation_rate, 6),
+            "note": (
+                "Violations are produced by the committed PRECONDITION/POSTCONDITION "
+                "validators rejecting a deterministic malformed-input fraction; they "
+                "are measured by the real ORASRRouter, not assigned."
+            ),
+        },
+        "risk_coverage_curve": curve,
+        "operating_point": {
+            "tau": op_tau,
+            "coverage": round(op_coverage, 6),
+            "risk": round(op_risk, 6),
+            "note": "tau == ORASRRouter.SAFE_PATH_THRESHOLD (natural deferral set).",
+        },
+        "lane_reliability": lane_reliability,
+    }
+
+
 def environment_block() -> Dict[str, Any]:
     return {
         "python": platform.python_version(),
@@ -267,6 +393,7 @@ def main() -> None:
 
     structure = verify_structure()
     cohort = run_cohort()
+    reject = run_reject_option()
     env = environment_block()
     gaps = gaps_block()
 
@@ -278,6 +405,24 @@ def main() -> None:
         json.dumps({"environment": env, **cohort}, indent=2), encoding="utf-8"
     )
     (RESULTS / "gaps.json").write_text(json.dumps(gaps, indent=2), encoding="utf-8")
+    (RESULTS / "reject_option.json").write_text(
+        json.dumps({"environment": env, **reject}, indent=2), encoding="utf-8"
+    )
+
+    # CSV: risk-coverage curve (consumed by the figure script).
+    with (RESULTS / "risk_coverage.csv").open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.writer(fh)
+        writer.writerow(["tau", "coverage", "risk", "n_covered"])
+        for pt in reject["risk_coverage_curve"]:
+            writer.writerow([pt["tau"], pt["coverage"], pt["risk"], pt["n_covered"]])
+
+    # CSV: per-lane gate reliability (consumed by the figure script).
+    with (RESULTS / "lane_reliability.csv").open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.writer(fh)
+        writer.writerow(["lane", "n", "violations", "pass_rate_pct"])
+        for lane in ("FAST", "NORMAL", "SAFE"):
+            lr = reject["lane_reliability"][lane]
+            writer.writerow([lane, lr["n"], lr["violations"], lr["pass_rate_pct"]])
 
     # CSV: pathway distribution (consumed by the figure script).
     with (RESULTS / "pathway_distribution.csv").open("w", newline="", encoding="utf-8") as fh:
@@ -313,6 +458,18 @@ def main() -> None:
     print("Structural checks pass:", structure["all_structural_checks_pass"])
     print("Pathway distribution:", cohort["pathway_distribution"])
     print("Gate pass rate (clean cohort):", cohort["gate_pass_rate_pct"], "%")
+    print(
+        "Reject-option base violation rate (robustness cohort):",
+        round(100.0 * reject["robustness_cohort"]["base_violation_rate"], 2), "%",
+    )
+    print(
+        "Operating point (tau=%.2f): coverage=%.3f risk=%.4f"
+        % (
+            reject["operating_point"]["tau"],
+            reject["operating_point"]["coverage"],
+            reject["operating_point"]["risk"],
+        )
+    )
     print("Measured latency (ms, host-specific):")
     for path in ("FAST", "NORMAL", "SAFE"):
         print("  ", path, cohort["latency_measured_ms"][path])

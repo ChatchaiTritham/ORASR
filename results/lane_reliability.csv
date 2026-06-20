@@ -1,0 +1,4 @@
+lane,n,violations,pass_rate_pct
+FAST,1767,326,81.5507
+NORMAL,2454,414,83.1296
+SAFE,1779,346,80.5509
