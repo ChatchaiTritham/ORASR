@@ -39,6 +39,8 @@ FIGURE_MANIFEST.csv   curated figure inventory used as manuscript evidence
 ## Installation
 
 ```bash
+git clone https://github.com/ChatchaiTritham/ORASR.git
+cd ORASR
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -e .
 pip install -r requirements.txt
