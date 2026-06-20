@@ -1,0 +1,27 @@
+{
+  "thresholds": {
+    "fast_path_threshold": 0.3,
+    "safe_path_threshold": 0.7,
+    "fast_threshold_expected_0_3": true,
+    "safe_threshold_expected_0_7": true
+  },
+  "gate_counts": {
+    "FAST": 1,
+    "NORMAL": 3,
+    "SAFE": 4
+  },
+  "monotonic_gate_count": true,
+  "monotonic_gate_inclusion_chain": true,
+  "partition_probe": {
+    "rho_0.00": "FAST",
+    "rho_0.29": "FAST",
+    "rho_0.30": "NORMAL",
+    "rho_0.50": "NORMAL",
+    "rho_0.69": "NORMAL",
+    "rho_0.70": "SAFE",
+    "rho_1.00": "SAFE"
+  },
+  "partition_correct": true,
+  "non_bypass_holds": true,
+  "all_structural_checks_pass": true
+}

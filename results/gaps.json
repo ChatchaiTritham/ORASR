@@ -1,0 +1,18 @@
+{
+  "mimic_iv_retrospective": {
+    "status": "NOT REPRODUCIBLE",
+    "reason": "No MIMIC-IV data, extraction code, or risk-assignment mapping is committed. The 8,412-action corpus and its 58.1/31.5/10.4% distribution cannot be regenerated from this repository."
+  },
+  "flat_monitor_baseline": {
+    "status": "NOT REPRODUCIBLE",
+    "reason": "No flat runtime-monitor implementation is committed, so the 86% latency-reduction and 7.3x figures cannot be recomputed."
+  },
+  "manuscript_latency_literals": {
+    "status": "ENVIRONMENT-SPECIFIC",
+    "reason": "Latencies depend on host hardware/load. This driver measures latency on the current machine and labels it as such; it does not reproduce the manuscript's specific values."
+  },
+  "gate_pass_rate_98_7": {
+    "status": "NOT REPRODUCIBLE AS PUBLISHED",
+    "reason": "The committed gate validators pass for well-formed inputs, so a clean synthetic cohort yields a 100% pass rate. The 98.7% rate and the 130-block breakdown depend on a failure-injection / malformed-input mix that is not committed and is not reconstructed here (no tuning to match the paper)."
+  }
+}
