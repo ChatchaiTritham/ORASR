@@ -1,0 +1,28 @@
+{
+  "title": "ORASR: Operational Reasoning-Action Safety Routing for Clinical Decision Support",
+  "description": "An operational reasoning-action safety routing component that selects safe clinical action pathways under uncertainty. It receives a risk and action request, checks pathway constraints, selects a route (FAST, NORMAL, or SAFE) with a safety override on constraint violation, and records the reasoning and audit outputs.",
+  "upload_type": "software",
+  "license": "MIT",
+  "access_right": "open",
+  "version": "1.0.0",
+  "creators": [
+    {
+      "name": "Tritham, Chatchai",
+      "orcid": "0000-0001-7899-228X",
+      "affiliation": "Department of Computer Science and Information Technology, Faculty of Science, Naresuan University, Phitsanulok 65000, Thailand"
+    },
+    {
+      "name": "Namahoot, Chakkrit Snae",
+      "orcid": "0000-0003-4660-4590",
+      "affiliation": "Department of Computer Science and Information Technology, Faculty of Science, Naresuan University, Phitsanulok 65000, Thailand"
+    }
+  ],
+  "keywords": [
+    "clinical decision support systems",
+    "safety routing",
+    "action selection under uncertainty",
+    "safety override",
+    "auditability",
+    "patient safety"
+  ]
+}

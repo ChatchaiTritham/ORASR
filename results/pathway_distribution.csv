@@ -1,0 +1,4 @@
+pathway,count,pct,mean_latency_ms,p95_latency_ms
+FAST,3500,35.0,0.0098,0.0145
+NORMAL,4500,45.0,0.0228,0.03
+SAFE,2000,20.0,0.026,0.0336

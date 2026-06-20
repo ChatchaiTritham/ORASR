@@ -2,13 +2,13 @@
 ORASR: Operational Reasoning-Action Safety Routing
 ===================================================
 
-Safety routing framework for AI decision-making.
+Safety routing framework for clinical decision-making.
 """
 
 from .constants import FRAMEWORK_NAME, PACKAGE_VERSION
 
 __version__ = PACKAGE_VERSION
-__author__ = "Clinical AI Research Team"
+__author__ = "Chatchai Tritham"
 
 from .router import ORASRRouter, RoutingResult
 from .pathways import ReasoningPath, PathwayConfig

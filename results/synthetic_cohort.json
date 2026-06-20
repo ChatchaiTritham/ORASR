@@ -1,0 +1,41 @@
+{
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+    "machine": "AMD64",
+    "seed": 42,
+    "timestamp_utc": "2026-06-19T08:29:40Z"
+  },
+  "total_scenarios": 10000,
+  "pathway_distribution": {
+    "FAST": 3500,
+    "NORMAL": 4500,
+    "SAFE": 2000
+  },
+  "pathway_distribution_pct": {
+    "FAST": 35.0,
+    "NORMAL": 45.0,
+    "SAFE": 20.0
+  },
+  "gate_pass_rate_pct": 100.0,
+  "blocked": 0,
+  "latency_measured_ms": {
+    "FAST": {
+      "n": 3500,
+      "mean_ms": 0.0098,
+      "p95_ms": 0.0145
+    },
+    "NORMAL": {
+      "n": 4500,
+      "mean_ms": 0.0228,
+      "p95_ms": 0.03
+    },
+    "SAFE": {
+      "n": 2000,
+      "mean_ms": 0.026,
+      "p95_ms": 0.0336
+    }
+  },
+  "latency_note": "Latencies are wall-clock timings measured on THIS host (see environment block). They are environment-specific and are NOT the manuscript literals."
+}
