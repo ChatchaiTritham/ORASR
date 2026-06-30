@@ -1,0 +1,299 @@
+{
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+    "machine": "AMD64",
+    "seed": 42,
+    "timestamp_utc": "2026-06-30T11:10:08Z"
+  },
+  "seed": 42,
+  "n_per_gate": 1000,
+  "configurations": {
+    "FULL_G1G2G3G4": {
+      "active_gates": [
+        "PRECONDITION",
+        "RISK_ASSESSMENT",
+        "CONSTRAINT_VALIDATION",
+        "POSTCONDITION"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "overall_coverage_loss": 0.0,
+      "overall_detection": 1.0
+    },
+    "minus_G1": {
+      "active_gates": [
+        "RISK_ASSESSMENT",
+        "CONSTRAINT_VALIDATION",
+        "POSTCONDITION"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "overall_coverage_loss": 0.25,
+      "overall_detection": 0.75
+    },
+    "minus_G2": {
+      "active_gates": [
+        "PRECONDITION",
+        "CONSTRAINT_VALIDATION",
+        "POSTCONDITION"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "overall_coverage_loss": 0.25,
+      "overall_detection": 0.75
+    },
+    "minus_G3": {
+      "active_gates": [
+        "PRECONDITION",
+        "RISK_ASSESSMENT",
+        "POSTCONDITION"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "overall_coverage_loss": 0.25,
+      "overall_detection": 0.75
+    },
+    "minus_G4": {
+      "active_gates": [
+        "PRECONDITION",
+        "RISK_ASSESSMENT",
+        "CONSTRAINT_VALIDATION"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "overall_coverage_loss": 0.25,
+      "overall_detection": 0.75
+    },
+    "progressive_G1": {
+      "active_gates": [
+        "PRECONDITION"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "overall_coverage_loss": 0.75,
+      "overall_detection": 0.25
+    },
+    "progressive_G1G2": {
+      "active_gates": [
+        "PRECONDITION",
+        "RISK_ASSESSMENT"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "overall_coverage_loss": 0.5,
+      "overall_detection": 0.5
+    },
+    "progressive_G1G2G3": {
+      "active_gates": [
+        "PRECONDITION",
+        "RISK_ASSESSMENT",
+        "CONSTRAINT_VALIDATION"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "overall_coverage_loss": 0.25,
+      "overall_detection": 0.75
+    },
+    "progressive_G1G2G3G4": {
+      "active_gates": [
+        "PRECONDITION",
+        "RISK_ASSESSMENT",
+        "CONSTRAINT_VALIDATION",
+        "POSTCONDITION"
+      ],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 0,
+        "coverage_loss": 0.0
+      },
+      "overall_coverage_loss": 0.0,
+      "overall_detection": 1.0
+    },
+    "NONE_no_gates": {
+      "active_gates": [],
+      "G1_precondition": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G2_risk": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G3_constraint": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "G4_postcondition": {
+        "n": 1000,
+        "undetected": 1000,
+        "coverage_loss": 1.0
+      },
+      "overall_coverage_loss": 1.0,
+      "overall_detection": 0.0
+    }
+  }
+}

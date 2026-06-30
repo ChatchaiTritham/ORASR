@@ -5,7 +5,7 @@
     "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
     "machine": "AMD64",
     "seed": 42,
-    "timestamp_utc": "2026-06-20T06:21:59Z"
+    "timestamp_utc": "2026-06-30T11:10:08Z"
   },
   "total_scenarios": 10000,
   "pathway_distribution": {
@@ -23,18 +23,18 @@
   "latency_measured_ms": {
     "FAST": {
       "n": 3500,
-      "mean_ms": 0.0252,
-      "p95_ms": 0.056
+      "mean_ms": 0.0074,
+      "p95_ms": 0.0143
     },
     "NORMAL": {
       "n": 4500,
-      "mean_ms": 0.064,
-      "p95_ms": 0.1338
+      "mean_ms": 0.0159,
+      "p95_ms": 0.0288
     },
     "SAFE": {
       "n": 2000,
-      "mean_ms": 0.0614,
-      "p95_ms": 0.1185
+      "mean_ms": 0.0179,
+      "p95_ms": 0.0339
     }
   },
   "latency_note": "Latencies are wall-clock timings measured on THIS host (see environment block). They are environment-specific and are NOT the manuscript literals."

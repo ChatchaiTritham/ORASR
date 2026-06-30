@@ -1,0 +1,48 @@
+{
+  "environment": {
+    "python": "3.13.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+    "machine": "AMD64",
+    "seed": 42,
+    "timestamp_utc": "2026-06-30T11:10:08Z"
+  },
+  "seed": 42,
+  "cohort_size": 10000,
+  "n_committed_gates": 4,
+  "lane_adaptive_cost_evals": {
+    "FAST": 1,
+    "NORMAL": 3,
+    "SAFE": 4
+  },
+  "lane_counts": {
+    "FAST": 3500,
+    "NORMAL": 4500,
+    "SAFE": 2000
+  },
+  "gate_work": {
+    "orasr_total_evals": 25000,
+    "flat_total_evals": 40000,
+    "orasr_evals_per_call": 2.5,
+    "flat_evals_per_call": 4.0,
+    "gate_work_reduction_pct": 37.5,
+    "throughput_ratio_worknorm": 1.6,
+    "note": "Counts come from instrumenting the committed SafetyGate.check on the real ORASRRouter; deterministic and host-independent. Throughput ratio is work-normalised (flat evals / ORASR evals), NOT a wall-clock speedup."
+  },
+  "latency_host_specific_ms": {
+    "overall_mean_ms": 0.019305,
+    "by_lane_mean_ms": {
+      "FAST": 0.011085,
+      "NORMAL": 0.024485,
+      "SAFE": 0.022033
+    },
+    "note": "Wall-clock latency on THIS host only. Absolute ms reductions (manuscript ~84-86% / 7.3x) are environment-specific and are NOT reproduced as literals; the gate-work reduction above is the portable, reproducible quantity."
+  },
+  "manuscript_cross_reference": {
+    "manuscript_orasr_evals_per_call": 1.94,
+    "manuscript_flat_evals_per_call": 4.0,
+    "manuscript_gate_work_reduction_pct": 51.0,
+    "explanation": "The manuscript's 1.94 evals/call derives from the MIMIC-IV action mix (58.1/31.5/10.4%): 0.581*1 + 0.315*3 + 0.104*4 = 1.942. The synthetic seed-42 cohort here uses a different (heavier) mix (35/45/20%), so its evals/call differs; the same arithmetic is applied transparently. The MIMIC mix requires credentialed data (see scripts/extract_mimic.py).",
+    "mimic_mix_evals_per_call_if_regenerated": 1.942
+  }
+}
