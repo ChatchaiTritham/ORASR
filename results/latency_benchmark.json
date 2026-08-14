@@ -1,0 +1,161 @@
+{
+  "seed": 42,
+  "environment": {
+    "python": "3.11.15",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+    "machine": "AMD64"
+  },
+  "note": "Wall-clock figures are specific to this host. The portable claim is the gate-work reduction reported by scripts/flat_baseline.py.",
+  "configurations": [
+    {
+      "configuration": "ORASR (adaptive)",
+      "n_actions": 10000,
+      "trials": 3,
+      "pathway_counts_first_trial": {
+        "FAST": 0,
+        "NORMAL": 0,
+        "SAFE": 10000
+      },
+      "throughput_actions_per_s": 58788.7,
+      "wall_clock_s_best_trial": 0.1701,
+      "latency_ms": {
+        "mean": 0.02268,
+        "p50": 0.0161,
+        "p95": 0.0437,
+        "p99": 0.1047,
+        "max": 3.1351
+      },
+      "latency_ms_by_pathway": {
+        "FAST": {
+          "n": 0,
+          "mean": null,
+          "p95": null
+        },
+        "NORMAL": {
+          "n": 0,
+          "mean": null,
+          "p95": null
+        },
+        "SAFE": {
+          "n": 30000,
+          "mean": 0.02268,
+          "p95": 0.0437
+        }
+      }
+    },
+    {
+      "configuration": "Flat monitor, 4 gates (forced SAFE)",
+      "n_actions": 10000,
+      "trials": 3,
+      "pathway_counts_first_trial": {
+        "FAST": 0,
+        "NORMAL": 0,
+        "SAFE": 10000
+      },
+      "throughput_actions_per_s": 27931.7,
+      "wall_clock_s_best_trial": 0.358,
+      "latency_ms": {
+        "mean": 0.04134,
+        "p50": 0.027,
+        "p95": 0.0625,
+        "p99": 0.204,
+        "max": 41.0932
+      },
+      "latency_ms_by_pathway": {
+        "FAST": {
+          "n": 0,
+          "mean": null,
+          "p95": null
+        },
+        "NORMAL": {
+          "n": 0,
+          "mean": null,
+          "p95": null
+        },
+        "SAFE": {
+          "n": 30000,
+          "mean": 0.04134,
+          "p95": 0.0625
+        }
+      }
+    },
+    {
+      "configuration": "Flat monitor, 3 gates (forced NORMAL)",
+      "n_actions": 10000,
+      "trials": 3,
+      "pathway_counts_first_trial": {
+        "FAST": 0,
+        "NORMAL": 0,
+        "SAFE": 10000
+      },
+      "throughput_actions_per_s": 56003.9,
+      "wall_clock_s_best_trial": 0.1786,
+      "latency_ms": {
+        "mean": 0.0199,
+        "p50": 0.0127,
+        "p95": 0.0407,
+        "p99": 0.0898,
+        "max": 1.8563
+      },
+      "latency_ms_by_pathway": {
+        "FAST": {
+          "n": 0,
+          "mean": null,
+          "p95": null
+        },
+        "NORMAL": {
+          "n": 0,
+          "mean": null,
+          "p95": null
+        },
+        "SAFE": {
+          "n": 30000,
+          "mean": 0.0199,
+          "p95": 0.0407
+        }
+      }
+    },
+    {
+      "configuration": "Single gate (forced FAST)",
+      "n_actions": 10000,
+      "trials": 3,
+      "pathway_counts_first_trial": {
+        "FAST": 0,
+        "NORMAL": 0,
+        "SAFE": 10000
+      },
+      "throughput_actions_per_s": 106147.6,
+      "wall_clock_s_best_trial": 0.0942,
+      "latency_ms": {
+        "mean": 0.00941,
+        "p50": 0.0072,
+        "p95": 0.0212,
+        "p99": 0.0345,
+        "max": 0.5293
+      },
+      "latency_ms_by_pathway": {
+        "FAST": {
+          "n": 0,
+          "mean": null,
+          "p95": null
+        },
+        "NORMAL": {
+          "n": 0,
+          "mean": null,
+          "p95": null
+        },
+        "SAFE": {
+          "n": 30000,
+          "mean": 0.00941,
+          "p95": 0.0212
+        }
+      }
+    }
+  ],
+  "adaptive_vs_flat4": {
+    "latency_mean_ratio": 1.82,
+    "throughput_ratio": 2.1,
+    "latency_reduction_pct": 45.1
+  }
+}
