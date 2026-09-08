@@ -88,7 +88,7 @@ def measure(cohort, risk_of, label: str) -> Dict[str, Any]:
             res = router.route(action=identity, input_data={"payload": 1},
                                risk_score=risk_of(s), human_approved=True)
             dt = (time.perf_counter() - t0) * 1000.0
-            path = str(getattr(res, "pathway", "")).split(".")[-1].upper()
+            path = str(getattr(res, "path", "")).split(".")[-1].upper()
             if path not in lat_by_path:
                 path = "SAFE"
             if trial == 0:
