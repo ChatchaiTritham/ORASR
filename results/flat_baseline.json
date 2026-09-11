@@ -5,7 +5,7 @@
     "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
     "machine": "AMD64",
     "seed": 42,
-    "timestamp_utc": "2026-09-08T15:04:17Z"
+    "timestamp_utc": "2026-09-08T16:21:10Z"
   },
   "seed": 42,
   "cohort_size": 10000,
@@ -30,11 +30,11 @@
     "note": "Counts come from instrumenting the committed SafetyGate.check on the real ORASRRouter; deterministic and host-independent. Throughput ratio is work-normalised (flat evals / ORASR evals), NOT a wall-clock speedup."
   },
   "latency_host_specific_ms": {
-    "overall_mean_ms": 0.012505,
+    "overall_mean_ms": 0.012831,
     "by_lane_mean_ms": {
-      "FAST": 0.008706,
-      "NORMAL": 0.013852,
-      "SAFE": 0.01612
+      "FAST": 0.008741,
+      "NORMAL": 0.014312,
+      "SAFE": 0.016654
     },
     "note": "Wall-clock latency on THIS host only. Absolute ms reductions (manuscript ~84-86% / 7.3x) are environment-specific and are NOT reproduced as literals; the gate-work reduction above is the portable, reproducible quantity."
   },
