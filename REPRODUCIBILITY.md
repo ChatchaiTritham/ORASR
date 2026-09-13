@@ -8,7 +8,7 @@ python scripts/run_all.py            # structural + cohort + flat-baseline + abl
 python scripts/flat_baseline.py      # gate-work: ORASR vs flat monitor (host-independent)
 python scripts/ablation.py           # progressive gate removal -> results/ablation.csv
 python scripts/extract_mimic.py --mimic-path /path/to/mimic-iv   # credentialed data only
-python -m pytest -q                  # structural + cohort tests (10 tests)
+python -m pytest -q                  # structural + cohort tests (unit + property-based tests)
 python scripts/generate_figures.py   # figures read thresholds from results/
 ```
 
@@ -23,13 +23,15 @@ measured per host and labelled as such.
 
 ## What reproduces vs. what does not
 
+> Historical audit of an earlier manuscript version (line numbers refer to that version). The current manuscript does not report any figure marked NOT reproduced below; its supplementary analyses are listed in README.md.
+
 | Manuscript claim (location) | Status | Source of truth |
 |---|---|---|
 | Thresholds 0.30 / 0.70 partition Fast/Normal/Safe (Abstract L104; Eq. L204–206) | **Reproduces** | `verify_structure()` reads `ORASRRouter.FAST_PATH_THRESHOLD`/`SAFE_PATH_THRESHOLD` and probes the partition. |
 | Monotonic gate inclusion: Fast=1, Normal=3, Safe=4 gates (Abstract L104; Contributions L125) | **Reproduces** | Gate lists read from `router.pathways`; verified as a strict superset chain. |
 | Non-bypass: a failed gate blocks execution (P2/P3, L106) | **Reproduces** | Driver routes a malformed input and asserts the action never runs. |
 | Synthetic cohort 3,500 / 4,500 / 2,000 across the three strata (L524) | **Reproduces** | `run_cohort()` builds and routes the stratified cohort; distribution is exact. |
-| Pathway latencies 2.3 / 45.2 / 287.5 ms (Abstract L106; Tab. L582–584; L906) | **Environment-specific — NOT reproduced** | No timing harness or hardware is committed; the manuscript ran on an i7-12700 / Ubuntu 22.04 (L522). The driver measures latency on the current host and writes it under an `environment` block. It does **not** copy the literals. |
+| Pathway latencies 2.3 / 45.2 / 287.5 ms (Abstract L106; Tab. L582–584; L906) | **Environment-specific — NOT reproduced** | No timing harness or hardware is committed; an earlier manuscript version cited an i7-12700 / Ubuntu 22.04 (L522). The driver measures latency on the current host and writes it under an `environment` block. It does **not** copy the literals. |
 | Gate pass rate 98.7%, 130 blocked (Tab. L608; breakdown L628–644) | **NOT reproducible as published** | The committed validators pass for well-formed inputs, so a clean cohort yields 100%. The 1.3% block rate needs a malformed-input / failure-injection mix that is not committed. The driver reports the honest 100% and records the gap (no tuning). |
 | 100% formal compliance / 0 violations (Tab. L549–555) | **Partially reproduces** | Zero violations on the clean cohort follows from the non-bypass property (no action executes after a gate fail). The published confidence intervals over a 10,000-trace audit are a presentation of the same property, not a separate recomputation. |
 | Gate-work reduction vs. flat monitor (synthetic cohort: 2.5 vs 4.0 evals/call → 37.5%) | **Reproduces (gate-work invariant)** | `scripts/flat_baseline.py` instruments the committed `SafetyGate.check` to count evals/call for ORASR (adaptive) vs a flat monitor (all gates always). On the seed-42 **synthetic** cohort: ORASR=2.5 vs flat=4.0 → **37.5%** reduction, **1.60×** work-normalised throughput. 1.94 evals/call is the arithmetic for an assumed planning mix (58.1/31.5/10.4%); no MIMIC-IV data were used. These are host-independent integers. |
@@ -64,7 +66,7 @@ extraction (`scripts/extract_mimic.py`). The seed-42 synthetic results are
 host-independent and byte-stable across runs; only wall-clock latency and the
 credentialed-data items above remain non-portable.
 
-## Recommended manuscript tempering
+## Recommended manuscript tempering (applied in the current manuscript)
 
 - Efficiency claim: report the **gate-work reduction** (evals/call) as the
   reproducible, host-independent quantity; present the ms / 7.3× speedup as

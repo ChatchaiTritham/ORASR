@@ -20,7 +20,7 @@ All numbers below come from `scripts/run_all.py` at seed 42 and match the commit
 - Gate counts are 1 / 3 / 4 for FAST / NORMAL / SAFE and form a strict inclusion chain, so risk-proportionate coverage holds by construction rather than by tuning.
 - A failed precondition gate marks the route unsafe and the wrapped action never runs (`non_bypass_holds = true`) — the non-bypass property the paper states as a theorem.
 - Routing a stratified 10,000-scenario cohort (3,500 / 4,500 / 2,000) reproduces the 35 / 45 / 20 percent pathway distribution exactly every time.
-- On a clean, well-formed cohort the gate pass rate is 100 percent. The manuscript's 98.7 percent figure and the 130-block breakdown come from an injected-failure mix that is not committed here; we report the honest clean-cohort number rather than tuning the code to match the paper (see `results/gaps.json`).
+- On a clean, well-formed cohort the gate pass rate is 100 percent. An earlier manuscript version's 98.7 percent figure and the 130-block breakdown come from an injected-failure mix that is not committed here; we report the honest clean-cohort number rather than tuning the code to match the paper (see `results/gaps.json`).
 
 No MIMIC-IV data were used: `scripts/extract_mimic.py` is provided for a planned retrospective study but has not been executed, and the 58.1 / 31.5 / 10.4 percent mix is only an assumed planning mix (1.94 gate evaluations per call by arithmetic). The reproducible efficiency result is the gate-work reduction on the synthetic cohort (2.5 vs 4.0 evaluations per call, 37.5 percent; `results/flat_baseline.json`). Latencies are measured on the host that runs the driver and are environment-specific; no latency literals are copied into the repository.
 
