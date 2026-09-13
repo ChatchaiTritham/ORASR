@@ -1,0 +1,45 @@
+{
+  "environment": {
+    "python": "3.11.15",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "hypothesis": "6.168.0",
+    "pytest": "9.1.1"
+  },
+  "settings": {
+    "max_examples": 2000,
+    "derandomize": true,
+    "database": null
+  },
+  "boundary_values": [
+    0.0,
+    1.0,
+    0.3,
+    0.7,
+    0.29999999999999993,
+    0.30000000000000004,
+    0.6999999999999998,
+    0.7000000000000001
+  ],
+  "examples_run": {
+    "P1": 2000,
+    "P2": 2000,
+    "P4": 2000,
+    "remark1_negative": 2000,
+    "remark1_out_of_range": 2000
+  },
+  "tests": {
+    "test_p1_exactly_one_pathway_in_band": "passed",
+    "test_p2_gate_set_inclusion": "passed",
+    "test_p4_trace_length_including_blocked": "passed",
+    "test_remark1_negative_routes_fast": "passed",
+    "test_remark1_nan_or_above_one_routes_safe_and_g2_fails": "passed",
+    "test_mutation_non_monotone_table_is_detected": "passed"
+  },
+  "failures": 0,
+  "mutation_detected": true,
+  "mutation_counterexample": [
+    1.0,
+    0.3
+  ],
+  "pytest_exit_code": 0
+}

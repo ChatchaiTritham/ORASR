@@ -1,6 +1,6 @@
 """Flat-monitor vs ORASR adaptive-routing baseline (reproducible, host-independent).
 
-This driver reproduces the *gate-work* part of the manuscript's efficiency claim
+This driver reproduces the *gate-work* efficiency result
 WITHOUT relying on wall-clock latency, which is environment-specific.
 
 Definitions
@@ -28,13 +28,12 @@ What is reproducible here
 
 What is NOT reproducible here (and is labelled as such)
 -------------------------------------------------------
-* Absolute wall-clock latency reductions (the manuscript's ~84-86% / 7.3x in
-  milliseconds) are HOST-dependent: they depend on per-gate cost, hardware, and
-  load. We measure per-host latency for transparency but do not claim the
-  manuscript literals. The gate-work reduction is the portable invariant.
-* The MIMIC-IV action mix (58.1/31.5/10.4%) is credentialed data; the same
-  arithmetic applied to that mix gives the manuscript's ~1.94 evals/call, but
-  that mix cannot be regenerated here (see ``scripts/extract_mimic.py``).
+* Absolute wall-clock latency reductions are HOST-dependent: they depend on
+  per-gate cost, hardware, and load. We measure per-host latency for
+  transparency only; the gate-work reduction is the portable invariant.
+* 1.94 evals/call is the arithmetic for an assumed planning mix
+  (58.1/31.5/10.4%); no MIMIC-IV data were used. The value is reported below as
+  a cross-reference computed from the engine's gate counts.
 
 Usage:
     python scripts/flat_baseline.py
@@ -144,7 +143,7 @@ def run() -> Dict[str, Any]:
         "SAFE": _adaptive_evals_for_risk(0.90),
     }
 
-    # Latency measured per host, purely for transparency (NOT a manuscript literal).
+    # Latency measured per host, purely for transparency (host-specific).
     lat_by_lane: Dict[str, List[float]] = {"FAST": [], "NORMAL": [], "SAFE": []}
 
     for sc in cohort:
@@ -201,25 +200,21 @@ def run() -> Dict[str, Any]:
             "overall_mean_ms": mean(lat_overall),
             "by_lane_mean_ms": {k: mean(v) for k, v in lat_by_lane.items()},
             "note": (
-                "Wall-clock latency on THIS host only. Absolute ms reductions "
-                "(manuscript ~84-86% / 7.3x) are environment-specific and are NOT "
-                "reproduced as literals; the gate-work reduction above is the "
+                "Wall-clock latency on THIS host only. Absolute ms reductions are "
+                "environment-specific; the gate-work reduction above is the "
                 "portable, reproducible quantity."
             ),
         },
-        "manuscript_cross_reference": {
-            "manuscript_orasr_evals_per_call": 1.94,
-            "manuscript_flat_evals_per_call": 4.0,
-            "manuscript_gate_work_reduction_pct": 51.0,
+        "planning_mix_cross_reference": {
+            "flat_evals_per_call": 4.0,
             "explanation": (
-                "The manuscript's 1.94 evals/call derives from the MIMIC-IV action "
-                "mix (58.1/31.5/10.4%): 0.581*1 + 0.315*3 + 0.104*4 = 1.942. The "
-                "synthetic seed-42 cohort here uses a different (heavier) mix "
-                "(35/45/20%), so its evals/call differs; the same arithmetic is "
-                "applied transparently. The MIMIC mix requires credentialed data "
-                "(see scripts/extract_mimic.py)."
+                "1.94 evals/call is the arithmetic for an assumed planning mix "
+                "(58.1/31.5/10.4%): 0.581*1 + 0.315*3 + 0.104*4 = 1.942. No MIMIC-IV "
+                "data were used. The synthetic seed-42 cohort uses a different "
+                "(heavier) mix (35/45/20%), giving 2.5 evals/call and a 37.5% "
+                "gate-work reduction."
             ),
-            "mimic_mix_evals_per_call_if_regenerated": round(
+            "planning_mix_evals_per_call": round(
                 0.581 * lane_adaptive_cost["FAST"]
                 + 0.315 * lane_adaptive_cost["NORMAL"]
                 + 0.104 * lane_adaptive_cost["SAFE"],
@@ -257,8 +252,8 @@ def main() -> None:
     print("  gate-work reduction:", gw["gate_work_reduction_pct"], "%")
     print("  throughput ratio (work-normalised):", gw["throughput_ratio_worknorm"], "x")
     print(
-        "  [cross-ref] MIMIC-mix evals/call if regenerated:",
-        res["manuscript_cross_reference"]["mimic_mix_evals_per_call_if_regenerated"],
+        "  [cross-ref] assumed planning-mix evals/call:",
+        res["planning_mix_cross_reference"]["planning_mix_evals_per_call"],
     )
     print("  latency (host-specific, NOT a literal):",
           res["latency_host_specific_ms"]["overall_mean_ms"], "ms mean")

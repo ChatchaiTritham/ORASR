@@ -1,0 +1,1268 @@
+{
+  "note": "parametric model, not a measurement",
+  "seed": 42,
+  "pathway_counts": {
+    "FAST": 3500,
+    "NORMAL": 4500,
+    "SAFE": 2000
+  },
+  "pathway_gates": {
+    "FAST": [
+      "G1"
+    ],
+    "NORMAL": [
+      "G1",
+      "G2",
+      "G3"
+    ],
+    "SAFE": [
+      "G1",
+      "G2",
+      "G3",
+      "G4"
+    ]
+  },
+  "pathway_requires_approval": {
+    "FAST": false,
+    "NORMAL": false,
+    "SAFE": true
+  },
+  "monitor_definitions": {
+    "ORASR": "risk-routed pathways; approval on SAFE only",
+    "Flat-3": "G1,G2,G3 on every action; no approval",
+    "Flat-4": "G1,G2,G3,G4 on every action; no approval",
+    "Flat-4+approval": "G1,G2,G3,G4 on every action; approval on every action"
+  },
+  "cost_profiles": {
+    "uniform": {
+      "G1": 1.0,
+      "G2": 1.0,
+      "G3": 1.0,
+      "G4": 1.0
+    },
+    "g2g3_10x": {
+      "G1": 1.0,
+      "G2": 10.0,
+      "G3": 10.0,
+      "G4": 1.0
+    }
+  },
+  "gate_costs_ms": [
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "approval_dwell_s": [
+    0.0,
+    30.0,
+    300.0
+  ],
+  "orasr_to_flat4_automated_cost_ratio": {
+    "uniform": 0.625,
+    "g2g3_10x": 0.6455
+  },
+  "rows": [
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.025,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 2.5e-05
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.03,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 3e-05
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.04,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 4e-05
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.04,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 4e-05
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.025,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.000025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.03,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 3e-05
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.04,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 4e-05
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.04,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.00004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.025,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.000025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.03,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 3e-05
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.04,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 4e-05
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.04,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.00004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.25,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.3,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0003
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.4,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.4,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.25,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.00025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.3,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0003
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.4,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.4,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.0004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.25,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.00025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.3,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0003
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.4,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.4,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.0004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 2.5,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 3.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.003
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 4.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 4.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 2.5,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.0025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 3.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.003
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 4.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 4.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 2.5,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.0025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 3.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.003
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 4.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 4.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.004
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 25.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 30.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.03
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 40.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.04
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 40.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.04
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 25.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 30.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.03
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 40.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.04
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 40.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.04
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 25.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.025
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 30.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.03
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 40.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.04
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 40.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.04
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 250.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.25
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 300.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.3
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 400.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.4
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 400.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.4
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 250.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.25
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 300.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.3
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 400.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.4
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 400.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.4
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 250.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.25
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 300.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.3
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 400.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.4
+    },
+    {
+      "profile": "uniform",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 400.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.4
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.142,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.000142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.21,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.22,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.22,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.142,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.000142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.21,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.22,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.22,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.00022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 0.142,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.000142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 0.21,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 0.22,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.01,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 0.22,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.00022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 1.42,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.00142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 2.1,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 2.2,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 2.2,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 1.42,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.00142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 2.1,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 2.2,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 2.2,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.0022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 1.42,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.00142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 2.1,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 2.2,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 0.1,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 2.2,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.0022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 14.2,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.0142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 21.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 22.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 22.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 14.2,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.0142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 21.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 22.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 22.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 14.2,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.0142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 21.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.021
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 22.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 1.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 22.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.022
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 142.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 210.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.21
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 220.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.22
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 220.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.22
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 142.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 6.142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 210.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.21
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 220.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.22
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 220.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 30.22
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 142.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 60.142
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 210.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.21
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 220.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 0.22
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 10.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 220.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 300.22
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 1420.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 1.42
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 2100.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 2.1
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 2200.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 2.2
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 0.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 2200.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 2.2
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 1420.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 6.0,
+      "total_s_per_action": 7.42
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 2100.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 2.1
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 2200.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 2.2
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 30.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 2200.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 30.0,
+      "total_s_per_action": 32.2
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "ORASR",
+      "automated_ms_per_action": 1420.0,
+      "approvals_per_1000": 200.0,
+      "approval_dwell_s_per_action": 60.0,
+      "total_s_per_action": 61.42
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-3",
+      "automated_ms_per_action": 2100.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 2.1
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4",
+      "automated_ms_per_action": 2200.0,
+      "approvals_per_1000": 0.0,
+      "approval_dwell_s_per_action": 0.0,
+      "total_s_per_action": 2.2
+    },
+    {
+      "profile": "g2g3_10x",
+      "gate_cost_ms": 100.0,
+      "approval_dwell_s": 300.0,
+      "monitor": "Flat-4+approval",
+      "automated_ms_per_action": 2200.0,
+      "approvals_per_1000": 1000.0,
+      "approval_dwell_s_per_action": 300.0,
+      "total_s_per_action": 302.2
+    }
+  ]
+}

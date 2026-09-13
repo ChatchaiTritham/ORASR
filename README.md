@@ -22,7 +22,7 @@ All numbers below come from `scripts/run_all.py` at seed 42 and match the commit
 - Routing a stratified 10,000-scenario cohort (3,500 / 4,500 / 2,000) reproduces the 35 / 45 / 20 percent pathway distribution exactly every time.
 - On a clean, well-formed cohort the gate pass rate is 100 percent. The manuscript's 98.7 percent figure and the 130-block breakdown come from an injected-failure mix that is not committed here; we report the honest clean-cohort number rather than tuning the code to match the paper (see `results/gaps.json`).
 
-Two manuscript results are deliberately **not** reproduced by this code: the MIMIC-IV retrospective corpus (8,412 actions; 58.1 / 31.5 / 10.4 percent distribution) and the flat-monitor latency baseline (the 84–86 percent reduction and 7.3x throughput claims). Neither the clinical extraction nor the baseline implementation is committed. Latencies are measured on the host that runs the driver and are environment-specific; the paper's literal values (2.3 / 45.2 / 287.5 ms) are not copied into the repository.
+No MIMIC-IV data were used: `scripts/extract_mimic.py` is provided for a planned retrospective study but has not been executed, and the 58.1 / 31.5 / 10.4 percent mix is only an assumed planning mix (1.94 gate evaluations per call by arithmetic). The reproducible efficiency result is the gate-work reduction on the synthetic cohort (2.5 vs 4.0 evaluations per call, 37.5 percent; `results/flat_baseline.json`). Latencies are measured on the host that runs the driver and are environment-specific; no latency literals are copied into the repository.
 
 ## Repository structure
 
@@ -73,6 +73,22 @@ The figure scripts read the threshold bands straight from the engine (or from `r
 No clinical or human-subject data is used or distributed here. The evaluation cohort is fully synthetic: 10,000 routing scenarios with risk scores drawn from uniform distributions over the three risk bands at a fixed seed. Because nothing in this repository touches patient records, no ethics approval or IRB review applies. A MIMIC-IV extraction script (`scripts/extract_mimic.py`) is included for a planned retrospective study; it requires credentialed PhysioNet access and has not been executed, so no MIMIC-IV results are reported.
 
 Supplementary manuscript checks (property checks P1/P2/P4, per-band mean risk, Clopper-Pearson bounds, threshold sensitivity, example reasoning trace, edge cases, and risk-score noise/misrouting analysis) are reproduced by `python scripts/manuscript_checks.py`, which writes `results/manuscript_checks.json`.
+
+## Supplementary analyses
+
+Each script is deterministic (seed 42, synthetic cohort) and writes one file to `results/`. All are called by `scripts/run_all.py` except the 30-trial latency run.
+
+| Script | Result file | What it reports |
+|---|---|---|
+| `scripts/manuscript_checks.py` | `manuscript_checks.json` | P1/P2/P4 checks, per-band mean risk, Clopper-Pearson bounds, threshold sensitivity, example trace, edge cases, noise misrouting |
+| `scripts/detection_by_pathway.py` (+ `scripts/demo_config.py`) | `detection_by_pathway.json` | Injected G1–G4 faults detected/undetected per pathway for the shipped default config and a non-default demonstration config (class risk ceilings for G2, shipped constraint factories for G3) |
+| `scripts/cost_model.py` | `cost_model.json` | Parametric (not measured) expected gate cost and approval burden for ORASR, Flat-3, Flat-4, Flat-4+approval |
+| `scripts/misrouting_analysis.py` | `misrouting_analysis.json` | Down/up-routing under Gaussian score noise, simulated vs analytic Φ(−d/σ), Safe-threshold guard-band sweep |
+| `scripts/adversarial_shift.py` | `adversarial_shift.json` | Down-routing of true-Safe actions under a score shift δ, with and without `require_human_approval` protection |
+| `scripts/run_property_tests.py` (runs `tests/test_properties.py`) | `property_tests.json` | Hypothesis property tests (2,000 derandomized examples each) and a mutation check |
+| `scripts/latency_benchmark.py --trials 30 --out results/latency_benchmark_30.json` | `latency_benchmark_30.json` | Host-specific per-trial latency with seeded bootstrap 95% CIs (not part of `run_all.py`) |
+
+Provenance: every number in these files is written by the listed script; wall-clock values carry an `environment` block and are host-specific. The default demonstration policy values (ceilings 0.20/0.50/0.90/1.00, 2 s time limit) are illustrative choices, not clinically validated.
 
 ## Citation
 

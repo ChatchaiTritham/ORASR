@@ -1,0 +1,235 @@
+{
+  "seed": 42,
+  "n_faults_per_stratum_and_class": 500,
+  "n_faults_total": 6000,
+  "fault_definitions": {
+    "G1": "input_data=None",
+    "G2": "action_class ceiling below rho (FAST-stratum faults use rho in (0.20,0.30))",
+    "G3": "elapsed_time=5.0 s > time_limit 2.0 s",
+    "G4": "action returns None"
+  },
+  "detected_definition": "route() returned safe == False; human_approved=True supplied",
+  "demo_policy": {
+    "class_ceilings": {
+      "lookup": 0.2,
+      "routine": 0.5,
+      "escalation": 0.9,
+      "critical": 1.0
+    },
+    "constraints": [
+      "time_limit_constraint(2.0)",
+      "risk_threshold_constraint(1.0)",
+      "approval_required_constraint() scoped to escalation|critical"
+    ]
+  },
+  "configurations": {
+    "default": {
+      "configuration": "default (shipped)",
+      "clean_cohort": {
+        "n": 10000,
+        "pathway_counts": {
+          "FAST": 3500,
+          "NORMAL": 4500,
+          "SAFE": 2000
+        },
+        "false_blocks_by_pathway": {
+          "FAST": 0,
+          "NORMAL": 0,
+          "SAFE": 0
+        },
+        "gate_evals_per_call": 2.5,
+        "constraint_evals_per_call": 0.0
+      },
+      "faults_by_pathway": {
+        "FAST": {
+          "G1": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G2": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          },
+          "G3": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          },
+          "G4": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          }
+        },
+        "NORMAL": {
+          "G1": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G2": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          },
+          "G3": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          },
+          "G4": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          }
+        },
+        "SAFE": {
+          "G1": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G2": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          },
+          "G3": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          },
+          "G4": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          }
+        }
+      },
+      "fault_classes_detected_by_pathway": {
+        "FAST": [
+          "G1"
+        ],
+        "NORMAL": [
+          "G1"
+        ],
+        "SAFE": [
+          "G1",
+          "G4"
+        ]
+      },
+      "checks": {
+        "fault_route_pathway_mismatches": 0,
+        "detected_faults_with_more_than_one_violation": 0
+      }
+    },
+    "demo": {
+      "configuration": "demonstration (scripts/demo_config.py)",
+      "clean_cohort": {
+        "n": 10000,
+        "pathway_counts": {
+          "FAST": 3500,
+          "NORMAL": 4500,
+          "SAFE": 2000
+        },
+        "false_blocks_by_pathway": {
+          "FAST": 0,
+          "NORMAL": 0,
+          "SAFE": 0
+        },
+        "gate_evals_per_call": 2.5,
+        "constraint_evals_per_call": 1.95
+      },
+      "faults_by_pathway": {
+        "FAST": {
+          "G1": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G2": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          },
+          "G3": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          },
+          "G4": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          }
+        },
+        "NORMAL": {
+          "G1": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G2": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G3": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G4": {
+            "injected": 500,
+            "detected": 0,
+            "undetected": 500
+          }
+        },
+        "SAFE": {
+          "G1": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G2": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G3": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          },
+          "G4": {
+            "injected": 500,
+            "detected": 500,
+            "undetected": 0
+          }
+        }
+      },
+      "fault_classes_detected_by_pathway": {
+        "FAST": [
+          "G1"
+        ],
+        "NORMAL": [
+          "G1",
+          "G2",
+          "G3"
+        ],
+        "SAFE": [
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ]
+      },
+      "checks": {
+        "fault_route_pathway_mismatches": 0,
+        "detected_faults_with_more_than_one_violation": 0
+      }
+    }
+  }
+}

@@ -21,8 +21,7 @@ What this driver DOES reproduce (deterministic, portable):
 What this driver does NOT fabricate:
   - Pathway LATENCIES are measured on the current host and written with an
     explicit ``environment`` block. They are wall-clock timings of THIS machine
-    and are not portable; the manuscript's literal values (2.3 / 45.2 / 287.5 ms)
-    and the ~84-86% ms latency reduction are NOT copied here (the portable
+    and are not portable; no latency literals are copied here (the portable
     gate-work reduction is reproduced instead).
   - The MIMIC-IV retrospective distribution requires credentialed PhysioNet data.
     scripts/extract_mimic.py is runnable against a user-supplied copy but ships
@@ -367,8 +366,8 @@ def gaps_block() -> Dict[str, Any]:
                 "monitor (all gates every call) on the seed-42 synthetic cohort. "
                 "On that cohort ORASR=2.5 vs flat=4.0 evals/call -> 37.5% gate-work "
                 "reduction and 1.60x work-normalised throughput. The same arithmetic "
-                "on the MIMIC action mix (58.1/31.5/10.4%) gives 1.94 evals/call, "
-                "matching the manuscript's analytic 1.94 vs 4.0 (51%). These are "
+                "on an assumed planning mix (58.1/31.5/10.4%) gives 1.94 evals/call; "
+                "no MIMIC-IV data were used. Evaluation counts are "
                 "host-INDEPENDENT integers."
             ),
         },
@@ -397,9 +396,9 @@ def gaps_block() -> Dict[str, Any]:
         "manuscript_latency_literals_and_mimic_latency": {
             "status": "ENVIRONMENT-SPECIFIC / REQUIRES CREDENTIALED DATA",
             "reason": (
-                "Absolute wall-clock latency (per-pathway 2.3/45.2/287.5 ms and the "
-                "~84-86% ms latency reduction / 7.3x speedup) depends on host "
-                "hardware/load and on the MIMIC action mix. The gate-work reduction "
+                "Absolute wall-clock latency (per-pathway ms and any ms latency "
+                "reduction or speedup) depends on host hardware/load and on the "
+                "action mix. The gate-work reduction "
                 "is reproduced as the portable invariant; absolute-ms reductions and "
                 "any MIMIC-weighted latency / MIMIC-based ablation latency column "
                 "remain host- and credentialed-data-specific and are NOT copied as "
@@ -536,6 +535,19 @@ def main() -> None:
     print("Measured latency (ms, host-specific):")
     for path in ("FAST", "NORMAL", "SAFE"):
         print("  ", path, cohort["latency_measured_ms"][path])
+    # Supplementary deterministic analyses (seed 42). The 30-trial latency
+    # variance run is host-specific and intentionally not called here.
+    import manuscript_checks  # noqa: E402
+    import detection_by_pathway  # noqa: E402
+    import cost_model  # noqa: E402
+    import misrouting_analysis  # noqa: E402
+    import adversarial_shift  # noqa: E402
+    import run_property_tests  # noqa: E402
+
+    for mod in (manuscript_checks, detection_by_pathway, cost_model,
+                misrouting_analysis, adversarial_shift):
+        mod.main()
+    run_property_tests.main()
     print("Artifacts written to", RESULTS)
 
 

@@ -29,6 +29,11 @@ implementation -- there is no two-gate pathway -- so it is not measured here.
 
 Run:  python scripts/latency_benchmark.py
 Writes: results/latency_benchmark.json
+
+Variance mode:  python scripts/latency_benchmark.py --trials 30 --out results/latency_benchmark_30.json
+additionally stores per-trial totals and per-trial mean latencies per configuration
+and seeded (42) percentile-bootstrap 95% CIs of the per-trial mean latency and of the
+ORASR/Flat-4 latency and throughput ratios. The default output file is unchanged.
 """
 
 from __future__ import annotations
@@ -69,7 +74,8 @@ def identity(data: Any) -> Any:
     return data
 
 
-def measure(cohort, risk_of, label: str) -> Dict[str, Any]:
+def measure(cohort, risk_of, label: str, trials: int = TRIALS,
+            keep_trials: bool = False) -> Dict[str, Any]:
     """Route the whole cohort, timing each call. risk_of picks the risk used."""
     router = ORASRRouter(enable_fast_path=True, enable_audit=False)
 
@@ -81,7 +87,9 @@ def measure(cohort, risk_of, label: str) -> Dict[str, Any]:
     lat_by_path: Dict[str, List[float]] = {"FAST": [], "NORMAL": [], "SAFE": []}
     counts: Dict[str, int] = {"FAST": 0, "NORMAL": 0, "SAFE": 0}
 
-    for trial in range(TRIALS):
+    per_trial_mean: List[float] = []
+    for trial in range(trials):
+        trial_sum = 0.0
         t_all = time.perf_counter()
         for s in cohort:
             t0 = time.perf_counter()
@@ -94,7 +102,9 @@ def measure(cohort, risk_of, label: str) -> Dict[str, Any]:
             if trial == 0:
                 counts[path] += 1
             lat_by_path[path].append(dt)
+            trial_sum += dt
         per_trial_total.append(time.perf_counter() - t_all)
+        per_trial_mean.append(trial_sum / len(cohort))
 
     allt = [x for v in lat_by_path.values() for x in v]
 
@@ -105,10 +115,10 @@ def measure(cohort, risk_of, label: str) -> Dict[str, Any]:
         return round(s[min(len(s) - 1, int(q * len(s)))], 5)
 
     best = min(per_trial_total)
-    return {
+    out = {
         "configuration": label,
         "n_actions": len(cohort),
-        "trials": TRIALS,
+        "trials": trials,
         "pathway_counts_first_trial": counts,
         "throughput_actions_per_s": round(len(cohort) / best, 1),
         "wall_clock_s_best_trial": round(best, 4),
@@ -126,9 +136,92 @@ def measure(cohort, risk_of, label: str) -> Dict[str, Any]:
             for p, v in lat_by_path.items()
         },
     }
+    if keep_trials:
+        out["per_trial_total_s"] = [round(x, 6) for x in per_trial_total]
+        out["per_trial_mean_latency_ms"] = [round(x, 6) for x in per_trial_mean]
+        out["per_trial_throughput_actions_per_s"] = [
+            round(len(cohort) / x, 2) for x in per_trial_total]
+    return out
+
+
+def bootstrap_ci(stat, arrays, n_boot: int = 10000, seed: int = SEED):
+    """Percentile bootstrap (independent resampling of each array's trials)."""
+    import numpy as np
+
+    rng = np.random.default_rng(seed)
+    arrs = [np.asarray(a, dtype=float) for a in arrays]
+    boots = np.empty(n_boot)
+    for b in range(n_boot):
+        boots[b] = stat(*[a[rng.integers(0, len(a), len(a))] for a in arrs])
+    point = stat(*arrs)
+    lo, hi = np.percentile(boots, [2.5, 97.5])
+    return {"estimate": round(float(point), 6), "ci95": [round(float(lo), 6), round(float(hi), 6)],
+            "n_boot": n_boot, "seed": seed}
+
+
+def variance_run(trials: int, out_path: Path) -> int:
+    import numpy as np
+
+    rng = random.Random(SEED)
+    cohort = build_cohort(rng)
+    specs = [(lambda s: s["risk"], "ORASR (adaptive)"),
+             (lambda s: 0.95, "Flat monitor, 4 gates (forced SAFE)"),
+             (lambda s: 0.50, "Flat monitor, 3 gates (forced NORMAL)"),
+             (lambda s: 0.10, "Single gate (forced FAST)")]
+    results = [measure(cohort, f, label, trials=trials, keep_trials=True) for f, label in specs]
+    for r in results:
+        r["per_trial_mean_latency_ms_summary"] = bootstrap_ci(
+            lambda a: a.mean(), [r["per_trial_mean_latency_ms"]])
+    adaptive, flat4 = results[0], results[1]
+    out = {
+        "seed": SEED,
+        "trials": trials,
+        "warmup_calls": WARMUP,
+        "environment": {
+            "python": platform.python_version(),
+            "platform": platform.platform(),
+            "processor": platform.processor(),
+            "machine": platform.machine(),
+            "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        },
+        "note": ("Wall-clock figures are specific to this host. Configurations are run "
+                 "sequentially (all trials of one configuration, then the next), so "
+                 "ratio CIs resample each configuration's trials independently."),
+        "configurations": results,
+        "orasr_vs_flat4": {
+            "latency_ratio_orasr_over_flat4": bootstrap_ci(
+                lambda a, f: a.mean() / f.mean(),
+                [adaptive["per_trial_mean_latency_ms"], flat4["per_trial_mean_latency_ms"]]),
+            "throughput_ratio_orasr_over_flat4": bootstrap_ci(
+                lambda a, f: a.mean() / f.mean(),
+                [adaptive["per_trial_throughput_actions_per_s"],
+                 flat4["per_trial_throughput_actions_per_s"]]),
+        },
+        "numpy": np.__version__,
+    }
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as fh:
+        json.dump(out, fh, indent=2)
+        fh.write("\n")
+    for r in results:
+        print(r["configuration"], r["per_trial_mean_latency_ms_summary"])
+    print(json.dumps(out["orasr_vs_flat4"]))
+    return 0
 
 
 def main() -> int:
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--trials", type=int, default=None)
+    ap.add_argument("--out", type=Path, default=None)
+    args = ap.parse_args()
+    if args.trials is not None or args.out is not None:
+        out_path = args.out or ROOT / "results" / f"latency_benchmark_{args.trials or TRIALS}.json"
+        if not out_path.is_absolute():
+            out_path = ROOT / out_path
+        return variance_run(args.trials or TRIALS, out_path)
+
     rng = random.Random(SEED)
     cohort = build_cohort(rng)
 

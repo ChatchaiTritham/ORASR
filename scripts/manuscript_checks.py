@@ -9,6 +9,7 @@ Usage:  python scripts/manuscript_checks.py
 """
 import json
 import math
+import platform
 import random
 import sys
 from pathlib import Path
@@ -35,12 +36,14 @@ def name(v):
 
 
 def main():
-    out = {"seed": lb.SEED}
+    out = {"seed": lb.SEED,
+           "environment": {"python": platform.python_version(),
+                           "platform": platform.platform(), "seed": lb.SEED}}
     cohort = lb.build_cohort(random.Random(lb.SEED))
     risks = [c["risk"] for c in cohort]
 
     # Clopper-Pearson 95% intervals for all-pass counts
-    out["clopper_pearson"] = {str(n): clopper_pearson(n, n) for n in (10000, 4000, 1000)}
+    out["clopper_pearson"] = {str(n): clopper_pearson(n, n) for n in (10000, 9999, 4000, 1000)}
 
     # Mean risk score per stratum
     out["mean_risk_by_stratum"] = {

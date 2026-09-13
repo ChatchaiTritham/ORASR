@@ -1,7 +1,7 @@
 {
   "flat_monitor_gate_work_baseline": {
     "status": "REPRODUCED (gate-work / throughput)",
-    "reason": "scripts/flat_baseline.py instruments the committed SafetyGate.check to count gate evaluations per call for ORASR (adaptive) vs a flat monitor (all gates every call) on the seed-42 synthetic cohort. On that cohort ORASR=2.5 vs flat=4.0 evals/call -> 37.5% gate-work reduction and 1.60x work-normalised throughput. The same arithmetic on the MIMIC action mix (58.1/31.5/10.4%) gives 1.94 evals/call, matching the manuscript's analytic 1.94 vs 4.0 (51%). These are host-INDEPENDENT integers."
+    "reason": "scripts/flat_baseline.py instruments the committed SafetyGate.check to count gate evaluations per call for ORASR (adaptive) vs a flat monitor (all gates every call) on the seed-42 synthetic cohort. On that cohort ORASR=2.5 vs flat=4.0 evals/call -> 37.5% gate-work reduction and 1.60x work-normalised throughput. The same arithmetic on an assumed planning mix (58.1/31.5/10.4%) gives 1.94 evals/call; no MIMIC-IV data were used. Evaluation counts are host-INDEPENDENT integers."
   },
   "synthetic_gate_removal_ablation": {
     "status": "REPRODUCED",
@@ -13,7 +13,7 @@
   },
   "manuscript_latency_literals_and_mimic_latency": {
     "status": "ENVIRONMENT-SPECIFIC / REQUIRES CREDENTIALED DATA",
-    "reason": "Absolute wall-clock latency (per-pathway 2.3/45.2/287.5 ms and the ~84-86% ms latency reduction / 7.3x speedup) depends on host hardware/load and on the MIMIC action mix. The gate-work reduction is reproduced as the portable invariant; absolute-ms reductions and any MIMIC-weighted latency / MIMIC-based ablation latency column remain host- and credentialed-data-specific and are NOT copied as literals here."
+    "reason": "Absolute wall-clock latency (per-pathway ms and any ms latency reduction or speedup) depends on host hardware/load and on the action mix. The gate-work reduction is reproduced as the portable invariant; absolute-ms reductions and any MIMIC-weighted latency / MIMIC-based ablation latency column remain host- and credentialed-data-specific and are NOT copied as literals here."
   },
   "gate_pass_rate_98_7": {
     "status": "NOT REPRODUCIBLE AS PUBLISHED",

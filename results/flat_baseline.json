@@ -1,11 +1,11 @@
 {
   "environment": {
-    "python": "3.13.14",
-    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.11.15",
+    "platform": "Windows-10-10.0.26200-SP0",
     "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
     "machine": "AMD64",
     "seed": 42,
-    "timestamp_utc": "2026-09-08T16:21:10Z"
+    "timestamp_utc": "2026-09-13T13:09:59Z"
   },
   "seed": 42,
   "cohort_size": 10000,
@@ -30,19 +30,17 @@
     "note": "Counts come from instrumenting the committed SafetyGate.check on the real ORASRRouter; deterministic and host-independent. Throughput ratio is work-normalised (flat evals / ORASR evals), NOT a wall-clock speedup."
   },
   "latency_host_specific_ms": {
-    "overall_mean_ms": 0.012831,
+    "overall_mean_ms": 0.013717,
     "by_lane_mean_ms": {
-      "FAST": 0.008741,
-      "NORMAL": 0.014312,
-      "SAFE": 0.016654
+      "FAST": 0.009226,
+      "NORMAL": 0.015228,
+      "SAFE": 0.018178
     },
-    "note": "Wall-clock latency on THIS host only. Absolute ms reductions (manuscript ~84-86% / 7.3x) are environment-specific and are NOT reproduced as literals; the gate-work reduction above is the portable, reproducible quantity."
+    "note": "Wall-clock latency on THIS host only. Absolute ms reductions are environment-specific; the gate-work reduction above is the portable, reproducible quantity."
   },
-  "manuscript_cross_reference": {
-    "manuscript_orasr_evals_per_call": 1.94,
-    "manuscript_flat_evals_per_call": 4.0,
-    "manuscript_gate_work_reduction_pct": 51.0,
-    "explanation": "The manuscript's 1.94 evals/call derives from the MIMIC-IV action mix (58.1/31.5/10.4%): 0.581*1 + 0.315*3 + 0.104*4 = 1.942. The synthetic seed-42 cohort here uses a different (heavier) mix (35/45/20%), so its evals/call differs; the same arithmetic is applied transparently. The MIMIC mix requires credentialed data (see scripts/extract_mimic.py).",
-    "mimic_mix_evals_per_call_if_regenerated": 1.942
+  "planning_mix_cross_reference": {
+    "flat_evals_per_call": 4.0,
+    "explanation": "1.94 evals/call is the arithmetic for an assumed planning mix (58.1/31.5/10.4%): 0.581*1 + 0.315*3 + 0.104*4 = 1.942. No MIMIC-IV data were used. The synthetic seed-42 cohort uses a different (heavier) mix (35/45/20%), giving 2.5 evals/call and a 37.5% gate-work reduction.",
+    "planning_mix_evals_per_call": 1.942
   }
 }

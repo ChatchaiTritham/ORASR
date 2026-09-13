@@ -1,8 +1,17 @@
 {
   "seed": 42,
+  "environment": {
+    "python": "3.11.15",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "seed": 42
+  },
   "clopper_pearson": {
     "10000": [
       0.9996311800853812,
+      1.0
+    ],
+    "9999": [
+      0.9996311432065048,
       1.0
     ],
     "4000": [
@@ -77,11 +86,11 @@
     ],
     "violations": [],
     "trace": {
-      "start_time": 1789285940.7246785,
+      "start_time": 1789305001.5783427,
       "elapsed_time": 0.0,
       "steps": [
         {
-          "timestamp": 1789285940.7246785,
+          "timestamp": 1789305001.5783427,
           "description": "Selected pathway: SAFE",
           "gate": "ROUTER",
           "result": "PASS",
@@ -91,7 +100,7 @@
           }
         },
         {
-          "timestamp": 1789285940.7246785,
+          "timestamp": 1789305001.5783427,
           "description": "Gate check: G1_Precondition",
           "gate": "G1_Precondition",
           "result": "PASS",
@@ -102,7 +111,7 @@
           }
         },
         {
-          "timestamp": 1789285940.7246785,
+          "timestamp": 1789305001.5783427,
           "description": "Gate check: G2_RiskAssessment",
           "gate": "G2_RiskAssessment",
           "result": "PASS",
@@ -113,7 +122,7 @@
           }
         },
         {
-          "timestamp": 1789285940.7246785,
+          "timestamp": 1789305001.5783427,
           "description": "Gate check: G3_ConstraintValidation",
           "gate": "G3_ConstraintValidation",
           "result": "PASS",
