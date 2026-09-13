@@ -70,21 +70,23 @@ The figure scripts read the threshold bands straight from the engine (or from `r
 
 ## Data
 
-No clinical or human-subject data is used or distributed here. The evaluation cohort is fully synthetic: 10,000 routing scenarios with risk scores drawn from uniform distributions over the three risk bands at a fixed seed. Because nothing in this repository touches patient records, no ethics approval or IRB review applies. The MIMIC-IV figures cited in the paper rely on credentialed access and are not part of this package.
+No clinical or human-subject data is used or distributed here. The evaluation cohort is fully synthetic: 10,000 routing scenarios with risk scores drawn from uniform distributions over the three risk bands at a fixed seed. Because nothing in this repository touches patient records, no ethics approval or IRB review applies. A MIMIC-IV extraction script (`scripts/extract_mimic.py`) is included for a planned retrospective study; it requires credentialed PhysioNet access and has not been executed, so no MIMIC-IV results are reported.
+
+Supplementary manuscript checks (property checks P1/P2/P4, per-band mean risk, Clopper-Pearson bounds, threshold sensitivity, example reasoning trace, edge cases, and risk-score noise/misrouting analysis) are reproduced by `python scripts/manuscript_checks.py`, which writes `results/manuscript_checks.json`.
 
 ## Citation
 
-The exact release behind the manuscript (`v1.0.0`) is archived on Zenodo:
-[doi:10.5281/zenodo.22731667](https://doi.org/10.5281/zenodo.22731667).
+The release behind the manuscript (`v1.1.0`) is archived on Zenodo. The concept DOI always resolves to the latest version:
+[doi:10.5281/zenodo.22731666](https://doi.org/10.5281/zenodo.22731666). The earlier `v1.0.0` snapshot is [doi:10.5281/zenodo.22731667](https://doi.org/10.5281/zenodo.22731667).
 
 ```bibtex
 @software{tritham_orasr_2026,
   author    = {Tritham, Chatchai and Snae Namahoot, Chakkrit},
   title     = {{ORASR}: Operational Reasoning-Action Safety Routing for Clinical Decision Support},
-  version   = {1.0.0},
+  version   = {1.1.0},
   year      = {2026},
   publisher = {Zenodo},
-  doi       = {10.5281/zenodo.22731667}
+  doi       = {10.5281/zenodo.22731666}
 }
 ```
 

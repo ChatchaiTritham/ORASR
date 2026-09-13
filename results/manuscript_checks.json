@@ -1,0 +1,192 @@
+{
+  "seed": 42,
+  "clopper_pearson": {
+    "10000": [
+      0.9996311800853812,
+      1.0
+    ],
+    "4000": [
+      0.9990782052505169,
+      1.0
+    ],
+    "1000": [
+      0.9963179161031344,
+      1.0
+    ]
+  },
+  "mean_risk_by_stratum": {
+    "FAST": 0.1509,
+    "NORMAL": 0.4991,
+    "SAFE": 0.8504
+  },
+  "properties": {
+    "P1_pathway_mismatches": 0,
+    "pathway_counts": {
+      "FAST": 3500,
+      "SAFE": 2000,
+      "NORMAL": 4500
+    },
+    "P2_gate_inclusion": true,
+    "P2_adjacent_monotonic_violations": 0,
+    "P2_pairs_checked": 9999,
+    "P4_trace_length_violations": 0,
+    "history_entries": 10000
+  },
+  "threshold_sensitivity": [
+    {
+      "theta1": 0.3,
+      "theta2": 0.7,
+      "fast_pct": 35.0,
+      "normal_pct": 45.0,
+      "safe_pct": 20.0,
+      "gate_work_per_call": 2.5
+    },
+    {
+      "theta1": 0.2,
+      "theta2": 0.5,
+      "fast_pct": 23.12,
+      "normal_pct": 34.57,
+      "safe_pct": 42.31,
+      "gate_work_per_call": 2.9607
+    },
+    {
+      "theta1": 0.4,
+      "theta2": 0.8,
+      "fast_pct": 46.19,
+      "normal_pct": 40.47,
+      "safe_pct": 13.34,
+      "gate_work_per_call": 2.2096
+    },
+    {
+      "theta1": 0.33,
+      "theta2": 0.67,
+      "fast_pct": 38.28,
+      "normal_pct": 38.43,
+      "safe_pct": 23.29,
+      "gate_work_per_call": 2.4673
+    }
+  ],
+  "example_trace": {
+    "path": "SAFE",
+    "safe": true,
+    "gates_passed": [
+      "G1_Precondition",
+      "G2_RiskAssessment",
+      "G3_ConstraintValidation",
+      "G4_Postcondition"
+    ],
+    "violations": [],
+    "trace": {
+      "start_time": 1789285940.7246785,
+      "elapsed_time": 0.0,
+      "steps": [
+        {
+          "timestamp": 1789285940.7246785,
+          "description": "Selected pathway: SAFE",
+          "gate": "ROUTER",
+          "result": "PASS",
+          "confidence": 1.0,
+          "metadata": {
+            "risk_score": 0.82
+          }
+        },
+        {
+          "timestamp": 1789285940.7246785,
+          "description": "Gate check: G1_Precondition",
+          "gate": "G1_Precondition",
+          "result": "PASS",
+          "confidence": 1.0,
+          "metadata": {
+            "gate_type": "precondition",
+            "gate_name": "G1_Precondition"
+          }
+        },
+        {
+          "timestamp": 1789285940.7246785,
+          "description": "Gate check: G2_RiskAssessment",
+          "gate": "G2_RiskAssessment",
+          "result": "PASS",
+          "confidence": 1.0,
+          "metadata": {
+            "gate_type": "risk_assessment",
+            "gate_name": "G2_RiskAssessment"
+          }
+        },
+        {
+          "timestamp": 1789285940.7246785,
+          "description": "Gate check: G3_ConstraintValidation",
+          "gate": "G3_ConstraintValidation",
+          "result": "PASS",
+          "confidence": 1.0,
+          "metadata": {
+            "gate_type": "constraint_validation",
+            "gate_name": "G3_ConstraintValidation"
+          }
+        }
+      ]
+    }
+  },
+  "edge_cases": [
+    {
+      "risk_score": -0.2,
+      "path": "FAST",
+      "safe": true,
+      "violations": []
+    },
+    {
+      "risk_score": "NaN",
+      "path": "SAFE",
+      "safe": false,
+      "violations": [
+        "G2_RiskAssessment: Gate failed"
+      ]
+    },
+    {
+      "risk_score": 1.3,
+      "path": "SAFE",
+      "safe": false,
+      "violations": [
+        "G2_RiskAssessment: Gate failed"
+      ]
+    },
+    {
+      "case": "enable_fast_path=False, risk 0.1",
+      "path": "NORMAL"
+    }
+  ],
+  "misrouting_noise": [
+    {
+      "sigma": 0.05,
+      "n_safe": 2000,
+      "counts": {
+        "FAST": 0,
+        "NORMAL": 145,
+        "SAFE": 1855
+      },
+      "down_routed_pct": 7.25,
+      "to_fast_pct": 0.0
+    },
+    {
+      "sigma": 0.1,
+      "n_safe": 2000,
+      "counts": {
+        "FAST": 0,
+        "NORMAL": 274,
+        "SAFE": 1726
+      },
+      "down_routed_pct": 13.7,
+      "to_fast_pct": 0.0
+    },
+    {
+      "sigma": 0.2,
+      "n_safe": 2000,
+      "counts": {
+        "FAST": 11,
+        "NORMAL": 503,
+        "SAFE": 1486
+      },
+      "down_routed_pct": 25.7,
+      "to_fast_pct": 0.55
+    }
+  ]
+}
