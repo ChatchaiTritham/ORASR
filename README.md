@@ -74,13 +74,17 @@ No clinical or human-subject data is used or distributed here. The evaluation co
 
 ## Citation
 
+The exact release behind the manuscript (`v1.0.0`) is archived on Zenodo:
+[doi:10.5281/zenodo.22731667](https://doi.org/10.5281/zenodo.22731667).
+
 ```bibtex
-@article{tritham_orasr,
-  author  = {Tritham, Chatchai and Snae Namahoot, Chakkrit},
-  title    = {Operational Reasoning-Action Safety Routing for Clinical Decision Support},
-  journal  = {Cognitive Computation},
-  note     = {to appear},
-  year     = {2026}
+@software{tritham_orasr_2026,
+  author    = {Tritham, Chatchai and Snae Namahoot, Chakkrit},
+  title     = {{ORASR}: Operational Reasoning-Action Safety Routing for Clinical Decision Support},
+  version   = {1.0.0},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.22731667}
 }
 ```
 

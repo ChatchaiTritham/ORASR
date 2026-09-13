@@ -26,6 +26,7 @@ authors:
 license: MIT
 repository-code: "https://github.com/ChatchaiTritham/ORASR"
 version: 1.0.0
+doi: "10.5281/zenodo.22731667"
 keywords:
   - clinical decision support systems
   - safety routing
